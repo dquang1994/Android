@@ -1,4 +1,5 @@
 **** HOW TO USE VIEW PAPER ****
+** WITH PagerAdapter **
 - Drag ViewPaper into layout
 
 - Create a layout file for each page pager_item.xml (ex: layout with an imageView to have an Image Slider)
@@ -77,3 +78,49 @@ public class ImagePagerAdapter extends PagerAdapter {
     // Bind the PagerAdapter to the ViewPager
     viewPager.setAdapter(adapter);
     
+** WITH FragmentPagerAdapter **
+- Drag ViewPager into layout
+
+- Create some fragments with layout
+
+- Create a class that extends FragmentPagerAdapter like below:
+  private class SimpleFragmentPagerAdapter extends FragmentPagerAdapter {
+        // A List to hold our fragments
+        private List<Fragment> fragments;
+
+        // A constructor to receive a fragment manager and a List
+        public SimpleFragmentPagerAdapter(FragmentManager fm, List<Fragment> fragments) {
+            // Call the super class' version
+            // of this constructor
+            super(fm);
+            this.fragments = fragments;
+        }
+
+        // Just two methods to override
+        // to get the current position of
+        // the adapter and the size of the List
+        @Override
+        public Fragment getItem(int position) {
+            return this.fragments.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return this.fragments.size();
+        }
+    }
+    
+- In MainActivity:
+  + Declare a list of fragment:
+  List<Fragment> fragmentList = new ArrayList<Fragment>();
+  
+  + Add fragment we need to slide into this list
+  
+  + Create instance of SimpleFragmentPagerAdapter
+  pageAdapter = new SimpleFragmentPagerAdapter(getSupportFragmentManager(), fragmentList);
+        
+  + Set adapter for ViewPager:
+  ViewPager pager = (ViewPager)findViewById(R.id.pager);
+  pager.setAdapter(pageAdapter);
+  
+  
