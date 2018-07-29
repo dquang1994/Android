@@ -1,0 +1,151 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /home/quangnguyen/AndroidStudioProjects/WhereItsSnap/app/src/main/AndroidManifest.xml:2:1-21:12
+INJECTED from /home/quangnguyen/AndroidStudioProjects/WhereItsSnap/app/src/main/AndroidManifest.xml:2:1-21:12
+INJECTED from /home/quangnguyen/AndroidStudioProjects/WhereItsSnap/app/src/main/AndroidManifest.xml:2:1-21:12
+INJECTED from /home/quangnguyen/AndroidStudioProjects/WhereItsSnap/app/src/main/AndroidManifest.xml:2:1-21:12
+MERGED from [com.android.support:appcompat-v7:28.0.0-alpha3] /home/quangnguyen/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0-alpha3.aar/d56ae17bf5bb49a7a736101a3aad59c9/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support.constraint:constraint-layout:1.1.2] /home/quangnguyen/.gradle/caches/transforms-1/files-1.1/constraint-layout-1.1.2.aar/526b5022c54b8d1764695b1592574c01/AndroidManifest.xml:2:1-11:12
+MERGED from [com.android.support:support-fragment:28.0.0-alpha3] /home/quangnguyen/.gradle/caches/transforms-1/files-1.1/support-fragment-28.0.0-alpha3.aar/ce76c4b437bcc3f841988334d1823fbd/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:animated-vector-drawable:28.0.0-alpha3] /home/quangnguyen/.gradle/caches/transforms-1/files-1.1/animated-vector-drawable-28.0.0-alpha3.aar/c8c4006ef7f5427dda87bc524f3680dc/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-core-ui:28.0.0-alpha3] /home/quangnguyen/.gradle/caches/transforms-1/files-1.1/support-core-ui-28.0.0-alpha3.aar/b9169c7715006d188532cc2d954334b1/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-core-utils:28.0.0-alpha3] /home/quangnguyen/.gradle/caches/transforms-1/files-1.1/support-core-utils-28.0.0-alpha3.aar/1ae86ccbec1b9d9a6d980a9eb52aaafc/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-vector-drawable:28.0.0-alpha3] /home/quangnguyen/.gradle/caches/transforms-1/files-1.1/support-vector-drawable-28.0.0-alpha3.aar/e0291caf385276a822db09427526da5a/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:loader:28.0.0-alpha3] /home/quangnguyen/.gradle/caches/transforms-1/files-1.1/loader-28.0.0-alpha3.aar/67cf15398eba7aaaaa9efebab12833fa/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:viewpager:28.0.0-alpha3] /home/quangnguyen/.gradle/caches/transforms-1/files-1.1/viewpager-28.0.0-alpha3.aar/95ebdca021e902d83e785e43982dba45/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:coordinatorlayout:28.0.0-alpha3] /home/quangnguyen/.gradle/caches/transforms-1/files-1.1/coordinatorlayout-28.0.0-alpha3.aar/9a9fe6cb660cd5dc108fdc327c522e9e/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:drawerlayout:28.0.0-alpha3] /home/quangnguyen/.gradle/caches/transforms-1/files-1.1/drawerlayout-28.0.0-alpha3.aar/4fb5ba0e4641043d8f4083902ea8f8e2/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:slidingpanelayout:28.0.0-alpha3] /home/quangnguyen/.gradle/caches/transforms-1/files-1.1/slidingpanelayout-28.0.0-alpha3.aar/32f57ca2085ae0648e6b789dafa69968/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:customview:28.0.0-alpha3] /home/quangnguyen/.gradle/caches/transforms-1/files-1.1/customview-28.0.0-alpha3.aar/b4768e8a21ff36f46c735cab55f90230/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:swiperefreshlayout:28.0.0-alpha3] /home/quangnguyen/.gradle/caches/transforms-1/files-1.1/swiperefreshlayout-28.0.0-alpha3.aar/f60db7cb832ae9588cca913ef87fd040/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:asynclayoutinflater:28.0.0-alpha3] /home/quangnguyen/.gradle/caches/transforms-1/files-1.1/asynclayoutinflater-28.0.0-alpha3.aar/e43f334fc30571e41ac8b43d18b93715/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-compat:28.0.0-alpha3] /home/quangnguyen/.gradle/caches/transforms-1/files-1.1/support-compat-28.0.0-alpha3.aar/e40068bad0ffb4f183777f2e2798aefc/AndroidManifest.xml:17:1-24:12
+MERGED from [com.android.support:cursoradapter:28.0.0-alpha3] /home/quangnguyen/.gradle/caches/transforms-1/files-1.1/cursoradapter-28.0.0-alpha3.aar/f7f56405b5c35ed1630af42a0a5d575d/AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.lifecycle:runtime:1.1.1] /home/quangnguyen/.gradle/caches/transforms-1/files-1.1/runtime-1.1.1.aar/99f034469eb0b3d6d8834af70435db69/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:versionedparcelable:28.0.0-alpha3] /home/quangnguyen/.gradle/caches/transforms-1/files-1.1/versionedparcelable-28.0.0-alpha3.aar/cc4556be5fb90f1143fbf6e061b12d4d/AndroidManifest.xml:17:1-25:12
+MERGED from [com.android.support:documentfile:28.0.0-alpha3] /home/quangnguyen/.gradle/caches/transforms-1/files-1.1/documentfile-28.0.0-alpha3.aar/0034e5c4ea71dd2db14486dc6385a707/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:localbroadcastmanager:28.0.0-alpha3] /home/quangnguyen/.gradle/caches/transforms-1/files-1.1/localbroadcastmanager-28.0.0-alpha3.aar/a26a3a4bf31e7961539e8bbd5ae38e96/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:print:28.0.0-alpha3] /home/quangnguyen/.gradle/caches/transforms-1/files-1.1/print-28.0.0-alpha3.aar/9e69966da723f8ed02b2266a4cc3013e/AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.lifecycle:viewmodel:1.1.1] /home/quangnguyen/.gradle/caches/transforms-1/files-1.1/viewmodel-1.1.1.aar/9c6de2efd46e83a410ba417c190b6554/AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.lifecycle:livedata-core:1.1.1] /home/quangnguyen/.gradle/caches/transforms-1/files-1.1/livedata-core-1.1.1.aar/63d51cc2eccc615b17e165955d2e8fce/AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.core:runtime:1.1.1] /home/quangnguyen/.gradle/caches/transforms-1/files-1.1/runtime-1.1.1.aar/c1e807f7c314fe03d89f6af4d45a24e3/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:interpolator:28.0.0-alpha3] /home/quangnguyen/.gradle/caches/transforms-1/files-1.1/interpolator-28.0.0-alpha3.aar/7dedf92095b786daf1be321145bda389/AndroidManifest.xml:17:1-22:12
+INJECTED from /home/quangnguyen/AndroidStudioProjects/WhereItsSnap/app/src/main/AndroidManifest.xml:2:1-21:12
+INJECTED from /home/quangnguyen/AndroidStudioProjects/WhereItsSnap/app/src/main/AndroidManifest.xml:2:1-21:12
+INJECTED from /home/quangnguyen/AndroidStudioProjects/WhereItsSnap/app/src/main/AndroidManifest.xml:2:1-21:12
+	package
+		ADDED from /home/quangnguyen/AndroidStudioProjects/WhereItsSnap/app/src/main/AndroidManifest.xml:3:5-51
+		INJECTED from /home/quangnguyen/AndroidStudioProjects/WhereItsSnap/app/src/main/AndroidManifest.xml
+		INJECTED from /home/quangnguyen/AndroidStudioProjects/WhereItsSnap/app/src/main/AndroidManifest.xml
+	android:versionName
+		INJECTED from /home/quangnguyen/AndroidStudioProjects/WhereItsSnap/app/src/main/AndroidManifest.xml
+		ADDED from /home/quangnguyen/AndroidStudioProjects/WhereItsSnap/app/src/main/AndroidManifest.xml:2:1-21:12
+		INJECTED from /home/quangnguyen/AndroidStudioProjects/WhereItsSnap/app/src/main/AndroidManifest.xml
+	android:versionCode
+		INJECTED from /home/quangnguyen/AndroidStudioProjects/WhereItsSnap/app/src/main/AndroidManifest.xml
+		ADDED from /home/quangnguyen/AndroidStudioProjects/WhereItsSnap/app/src/main/AndroidManifest.xml:2:1-21:12
+		INJECTED from /home/quangnguyen/AndroidStudioProjects/WhereItsSnap/app/src/main/AndroidManifest.xml
+	xmlns:android
+		ADDED from /home/quangnguyen/AndroidStudioProjects/WhereItsSnap/app/src/main/AndroidManifest.xml:2:11-69
+application
+ADDED from /home/quangnguyen/AndroidStudioProjects/WhereItsSnap/app/src/main/AndroidManifest.xml:5:5-19:19
+MERGED from [com.android.support.constraint:constraint-layout:1.1.2] /home/quangnguyen/.gradle/caches/transforms-1/files-1.1/constraint-layout-1.1.2.aar/526b5022c54b8d1764695b1592574c01/AndroidManifest.xml:9:5-20
+MERGED from [com.android.support.constraint:constraint-layout:1.1.2] /home/quangnguyen/.gradle/caches/transforms-1/files-1.1/constraint-layout-1.1.2.aar/526b5022c54b8d1764695b1592574c01/AndroidManifest.xml:9:5-20
+MERGED from [com.android.support:support-compat:28.0.0-alpha3] /home/quangnguyen/.gradle/caches/transforms-1/files-1.1/support-compat-28.0.0-alpha3.aar/e40068bad0ffb4f183777f2e2798aefc/AndroidManifest.xml:22:5-94
+MERGED from [com.android.support:support-compat:28.0.0-alpha3] /home/quangnguyen/.gradle/caches/transforms-1/files-1.1/support-compat-28.0.0-alpha3.aar/e40068bad0ffb4f183777f2e2798aefc/AndroidManifest.xml:22:5-94
+MERGED from [com.android.support:versionedparcelable:28.0.0-alpha3] /home/quangnguyen/.gradle/caches/transforms-1/files-1.1/versionedparcelable-28.0.0-alpha3.aar/cc4556be5fb90f1143fbf6e061b12d4d/AndroidManifest.xml:22:5-23:19
+MERGED from [com.android.support:versionedparcelable:28.0.0-alpha3] /home/quangnguyen/.gradle/caches/transforms-1/files-1.1/versionedparcelable-28.0.0-alpha3.aar/cc4556be5fb90f1143fbf6e061b12d4d/AndroidManifest.xml:22:5-23:19
+	android:appComponentFactory
+		ADDED from [com.android.support:support-compat:28.0.0-alpha3] /home/quangnguyen/.gradle/caches/transforms-1/files-1.1/support-compat-28.0.0-alpha3.aar/e40068bad0ffb4f183777f2e2798aefc/AndroidManifest.xml:22:18-91
+	android:supportsRtl
+		ADDED from /home/quangnguyen/AndroidStudioProjects/WhereItsSnap/app/src/main/AndroidManifest.xml:10:9-35
+	android:label
+		ADDED from /home/quangnguyen/AndroidStudioProjects/WhereItsSnap/app/src/main/AndroidManifest.xml:8:9-41
+	android:roundIcon
+		ADDED from /home/quangnguyen/AndroidStudioProjects/WhereItsSnap/app/src/main/AndroidManifest.xml:9:9-54
+	android:icon
+		ADDED from /home/quangnguyen/AndroidStudioProjects/WhereItsSnap/app/src/main/AndroidManifest.xml:7:9-43
+	android:allowBackup
+		ADDED from /home/quangnguyen/AndroidStudioProjects/WhereItsSnap/app/src/main/AndroidManifest.xml:6:9-35
+	android:theme
+		ADDED from /home/quangnguyen/AndroidStudioProjects/WhereItsSnap/app/src/main/AndroidManifest.xml:11:9-40
+activity#com.example.quangnguyen.whereitssnap.MainActivity
+ADDED from /home/quangnguyen/AndroidStudioProjects/WhereItsSnap/app/src/main/AndroidManifest.xml:12:9-18:20
+	android:name
+		ADDED from /home/quangnguyen/AndroidStudioProjects/WhereItsSnap/app/src/main/AndroidManifest.xml:12:19-47
+intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
+ADDED from /home/quangnguyen/AndroidStudioProjects/WhereItsSnap/app/src/main/AndroidManifest.xml:13:13-17:29
+action#android.intent.action.MAIN
+ADDED from /home/quangnguyen/AndroidStudioProjects/WhereItsSnap/app/src/main/AndroidManifest.xml:14:17-69
+	android:name
+		ADDED from /home/quangnguyen/AndroidStudioProjects/WhereItsSnap/app/src/main/AndroidManifest.xml:14:25-66
+category#android.intent.category.LAUNCHER
+ADDED from /home/quangnguyen/AndroidStudioProjects/WhereItsSnap/app/src/main/AndroidManifest.xml:16:17-77
+	android:name
+		ADDED from /home/quangnguyen/AndroidStudioProjects/WhereItsSnap/app/src/main/AndroidManifest.xml:16:27-74
+uses-sdk
+INJECTED from /home/quangnguyen/AndroidStudioProjects/WhereItsSnap/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /home/quangnguyen/AndroidStudioProjects/WhereItsSnap/app/src/main/AndroidManifest.xml
+INJECTED from /home/quangnguyen/AndroidStudioProjects/WhereItsSnap/app/src/main/AndroidManifest.xml
+MERGED from [com.android.support:appcompat-v7:28.0.0-alpha3] /home/quangnguyen/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0-alpha3.aar/d56ae17bf5bb49a7a736101a3aad59c9/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:appcompat-v7:28.0.0-alpha3] /home/quangnguyen/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0-alpha3.aar/d56ae17bf5bb49a7a736101a3aad59c9/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support.constraint:constraint-layout:1.1.2] /home/quangnguyen/.gradle/caches/transforms-1/files-1.1/constraint-layout-1.1.2.aar/526b5022c54b8d1764695b1592574c01/AndroidManifest.xml:5:5-7:41
+MERGED from [com.android.support.constraint:constraint-layout:1.1.2] /home/quangnguyen/.gradle/caches/transforms-1/files-1.1/constraint-layout-1.1.2.aar/526b5022c54b8d1764695b1592574c01/AndroidManifest.xml:5:5-7:41
+MERGED from [com.android.support:support-fragment:28.0.0-alpha3] /home/quangnguyen/.gradle/caches/transforms-1/files-1.1/support-fragment-28.0.0-alpha3.aar/ce76c4b437bcc3f841988334d1823fbd/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-fragment:28.0.0-alpha3] /home/quangnguyen/.gradle/caches/transforms-1/files-1.1/support-fragment-28.0.0-alpha3.aar/ce76c4b437bcc3f841988334d1823fbd/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:animated-vector-drawable:28.0.0-alpha3] /home/quangnguyen/.gradle/caches/transforms-1/files-1.1/animated-vector-drawable-28.0.0-alpha3.aar/c8c4006ef7f5427dda87bc524f3680dc/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:animated-vector-drawable:28.0.0-alpha3] /home/quangnguyen/.gradle/caches/transforms-1/files-1.1/animated-vector-drawable-28.0.0-alpha3.aar/c8c4006ef7f5427dda87bc524f3680dc/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-ui:28.0.0-alpha3] /home/quangnguyen/.gradle/caches/transforms-1/files-1.1/support-core-ui-28.0.0-alpha3.aar/b9169c7715006d188532cc2d954334b1/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-ui:28.0.0-alpha3] /home/quangnguyen/.gradle/caches/transforms-1/files-1.1/support-core-ui-28.0.0-alpha3.aar/b9169c7715006d188532cc2d954334b1/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-utils:28.0.0-alpha3] /home/quangnguyen/.gradle/caches/transforms-1/files-1.1/support-core-utils-28.0.0-alpha3.aar/1ae86ccbec1b9d9a6d980a9eb52aaafc/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-utils:28.0.0-alpha3] /home/quangnguyen/.gradle/caches/transforms-1/files-1.1/support-core-utils-28.0.0-alpha3.aar/1ae86ccbec1b9d9a6d980a9eb52aaafc/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:28.0.0-alpha3] /home/quangnguyen/.gradle/caches/transforms-1/files-1.1/support-vector-drawable-28.0.0-alpha3.aar/e0291caf385276a822db09427526da5a/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:28.0.0-alpha3] /home/quangnguyen/.gradle/caches/transforms-1/files-1.1/support-vector-drawable-28.0.0-alpha3.aar/e0291caf385276a822db09427526da5a/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:loader:28.0.0-alpha3] /home/quangnguyen/.gradle/caches/transforms-1/files-1.1/loader-28.0.0-alpha3.aar/67cf15398eba7aaaaa9efebab12833fa/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:loader:28.0.0-alpha3] /home/quangnguyen/.gradle/caches/transforms-1/files-1.1/loader-28.0.0-alpha3.aar/67cf15398eba7aaaaa9efebab12833fa/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:viewpager:28.0.0-alpha3] /home/quangnguyen/.gradle/caches/transforms-1/files-1.1/viewpager-28.0.0-alpha3.aar/95ebdca021e902d83e785e43982dba45/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:viewpager:28.0.0-alpha3] /home/quangnguyen/.gradle/caches/transforms-1/files-1.1/viewpager-28.0.0-alpha3.aar/95ebdca021e902d83e785e43982dba45/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:coordinatorlayout:28.0.0-alpha3] /home/quangnguyen/.gradle/caches/transforms-1/files-1.1/coordinatorlayout-28.0.0-alpha3.aar/9a9fe6cb660cd5dc108fdc327c522e9e/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:coordinatorlayout:28.0.0-alpha3] /home/quangnguyen/.gradle/caches/transforms-1/files-1.1/coordinatorlayout-28.0.0-alpha3.aar/9a9fe6cb660cd5dc108fdc327c522e9e/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:drawerlayout:28.0.0-alpha3] /home/quangnguyen/.gradle/caches/transforms-1/files-1.1/drawerlayout-28.0.0-alpha3.aar/4fb5ba0e4641043d8f4083902ea8f8e2/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:drawerlayout:28.0.0-alpha3] /home/quangnguyen/.gradle/caches/transforms-1/files-1.1/drawerlayout-28.0.0-alpha3.aar/4fb5ba0e4641043d8f4083902ea8f8e2/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:slidingpanelayout:28.0.0-alpha3] /home/quangnguyen/.gradle/caches/transforms-1/files-1.1/slidingpanelayout-28.0.0-alpha3.aar/32f57ca2085ae0648e6b789dafa69968/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:slidingpanelayout:28.0.0-alpha3] /home/quangnguyen/.gradle/caches/transforms-1/files-1.1/slidingpanelayout-28.0.0-alpha3.aar/32f57ca2085ae0648e6b789dafa69968/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:customview:28.0.0-alpha3] /home/quangnguyen/.gradle/caches/transforms-1/files-1.1/customview-28.0.0-alpha3.aar/b4768e8a21ff36f46c735cab55f90230/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:customview:28.0.0-alpha3] /home/quangnguyen/.gradle/caches/transforms-1/files-1.1/customview-28.0.0-alpha3.aar/b4768e8a21ff36f46c735cab55f90230/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:swiperefreshlayout:28.0.0-alpha3] /home/quangnguyen/.gradle/caches/transforms-1/files-1.1/swiperefreshlayout-28.0.0-alpha3.aar/f60db7cb832ae9588cca913ef87fd040/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:swiperefreshlayout:28.0.0-alpha3] /home/quangnguyen/.gradle/caches/transforms-1/files-1.1/swiperefreshlayout-28.0.0-alpha3.aar/f60db7cb832ae9588cca913ef87fd040/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:asynclayoutinflater:28.0.0-alpha3] /home/quangnguyen/.gradle/caches/transforms-1/files-1.1/asynclayoutinflater-28.0.0-alpha3.aar/e43f334fc30571e41ac8b43d18b93715/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:asynclayoutinflater:28.0.0-alpha3] /home/quangnguyen/.gradle/caches/transforms-1/files-1.1/asynclayoutinflater-28.0.0-alpha3.aar/e43f334fc30571e41ac8b43d18b93715/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-compat:28.0.0-alpha3] /home/quangnguyen/.gradle/caches/transforms-1/files-1.1/support-compat-28.0.0-alpha3.aar/e40068bad0ffb4f183777f2e2798aefc/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-compat:28.0.0-alpha3] /home/quangnguyen/.gradle/caches/transforms-1/files-1.1/support-compat-28.0.0-alpha3.aar/e40068bad0ffb4f183777f2e2798aefc/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:cursoradapter:28.0.0-alpha3] /home/quangnguyen/.gradle/caches/transforms-1/files-1.1/cursoradapter-28.0.0-alpha3.aar/f7f56405b5c35ed1630af42a0a5d575d/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:cursoradapter:28.0.0-alpha3] /home/quangnguyen/.gradle/caches/transforms-1/files-1.1/cursoradapter-28.0.0-alpha3.aar/f7f56405b5c35ed1630af42a0a5d575d/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:runtime:1.1.1] /home/quangnguyen/.gradle/caches/transforms-1/files-1.1/runtime-1.1.1.aar/99f034469eb0b3d6d8834af70435db69/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:runtime:1.1.1] /home/quangnguyen/.gradle/caches/transforms-1/files-1.1/runtime-1.1.1.aar/99f034469eb0b3d6d8834af70435db69/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:versionedparcelable:28.0.0-alpha3] /home/quangnguyen/.gradle/caches/transforms-1/files-1.1/versionedparcelable-28.0.0-alpha3.aar/cc4556be5fb90f1143fbf6e061b12d4d/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:versionedparcelable:28.0.0-alpha3] /home/quangnguyen/.gradle/caches/transforms-1/files-1.1/versionedparcelable-28.0.0-alpha3.aar/cc4556be5fb90f1143fbf6e061b12d4d/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:documentfile:28.0.0-alpha3] /home/quangnguyen/.gradle/caches/transforms-1/files-1.1/documentfile-28.0.0-alpha3.aar/0034e5c4ea71dd2db14486dc6385a707/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:documentfile:28.0.0-alpha3] /home/quangnguyen/.gradle/caches/transforms-1/files-1.1/documentfile-28.0.0-alpha3.aar/0034e5c4ea71dd2db14486dc6385a707/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:localbroadcastmanager:28.0.0-alpha3] /home/quangnguyen/.gradle/caches/transforms-1/files-1.1/localbroadcastmanager-28.0.0-alpha3.aar/a26a3a4bf31e7961539e8bbd5ae38e96/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:localbroadcastmanager:28.0.0-alpha3] /home/quangnguyen/.gradle/caches/transforms-1/files-1.1/localbroadcastmanager-28.0.0-alpha3.aar/a26a3a4bf31e7961539e8bbd5ae38e96/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:print:28.0.0-alpha3] /home/quangnguyen/.gradle/caches/transforms-1/files-1.1/print-28.0.0-alpha3.aar/9e69966da723f8ed02b2266a4cc3013e/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:print:28.0.0-alpha3] /home/quangnguyen/.gradle/caches/transforms-1/files-1.1/print-28.0.0-alpha3.aar/9e69966da723f8ed02b2266a4cc3013e/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:viewmodel:1.1.1] /home/quangnguyen/.gradle/caches/transforms-1/files-1.1/viewmodel-1.1.1.aar/9c6de2efd46e83a410ba417c190b6554/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:viewmodel:1.1.1] /home/quangnguyen/.gradle/caches/transforms-1/files-1.1/viewmodel-1.1.1.aar/9c6de2efd46e83a410ba417c190b6554/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:livedata-core:1.1.1] /home/quangnguyen/.gradle/caches/transforms-1/files-1.1/livedata-core-1.1.1.aar/63d51cc2eccc615b17e165955d2e8fce/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:livedata-core:1.1.1] /home/quangnguyen/.gradle/caches/transforms-1/files-1.1/livedata-core-1.1.1.aar/63d51cc2eccc615b17e165955d2e8fce/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.core:runtime:1.1.1] /home/quangnguyen/.gradle/caches/transforms-1/files-1.1/runtime-1.1.1.aar/c1e807f7c314fe03d89f6af4d45a24e3/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.core:runtime:1.1.1] /home/quangnguyen/.gradle/caches/transforms-1/files-1.1/runtime-1.1.1.aar/c1e807f7c314fe03d89f6af4d45a24e3/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:interpolator:28.0.0-alpha3] /home/quangnguyen/.gradle/caches/transforms-1/files-1.1/interpolator-28.0.0-alpha3.aar/7dedf92095b786daf1be321145bda389/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:interpolator:28.0.0-alpha3] /home/quangnguyen/.gradle/caches/transforms-1/files-1.1/interpolator-28.0.0-alpha3.aar/7dedf92095b786daf1be321145bda389/AndroidManifest.xml:20:5-44
+INJECTED from /home/quangnguyen/AndroidStudioProjects/WhereItsSnap/app/src/main/AndroidManifest.xml
+INJECTED from /home/quangnguyen/AndroidStudioProjects/WhereItsSnap/app/src/main/AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from /home/quangnguyen/AndroidStudioProjects/WhereItsSnap/app/src/main/AndroidManifest.xml
+		ADDED from /home/quangnguyen/AndroidStudioProjects/WhereItsSnap/app/src/main/AndroidManifest.xml
+		INJECTED from /home/quangnguyen/AndroidStudioProjects/WhereItsSnap/app/src/main/AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from /home/quangnguyen/AndroidStudioProjects/WhereItsSnap/app/src/main/AndroidManifest.xml
+		ADDED from /home/quangnguyen/AndroidStudioProjects/WhereItsSnap/app/src/main/AndroidManifest.xml
+		INJECTED from /home/quangnguyen/AndroidStudioProjects/WhereItsSnap/app/src/main/AndroidManifest.xml
