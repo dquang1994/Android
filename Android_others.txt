@@ -1,0 +1,80 @@
+- Sizing using dp and sp:
+	+ dp use for sizing widget width and height
+	+ sp use for font size
+	+ determine by horizontal resolution / horizontal size in inches
+
+- Sizing using match parent and wrap content
+
+- Padding (inside) and margin (outside)
+
+- Layout_weight: 1 of 2 height or width must set to 0 and layout_weight is apply for the property that set to 0. (Chia theo ti le)
+
+- gravity: align content inside, layout_gravity: align widget position itself within a layout element
+
+- Relative layout: children of the layout is relate to each others. Some important property:
+	+ android:layout_above:{id} => element will above the element that has id = id
+	+ android:layout_below:{id} => ....below...
+	+ android:layout_align[left|right...]="true"
+	+ android:margin...
+	
+- Linear layout: 
+	+ vertical: the new added element will below the old element
+	+ horizontal: the new added element will on the right of old element
+	
+- scroll view can only has one child and usually is linear layout, once have linear layout, we can add as many widgets as we want and they will add scroll nicely
+
+- hint property: the text will be put on the widget as soon as the user tap to it and enter text
+
+- Usually design is linear layout on the top, we will devide it into many frames and each frames is relative layout
+
+- Android life cycle:
+	+ Being created: onCreated
+	+ Starting: onStart
+	+ Resuming: onResume
+	+ Pausing: onPause
+	+ Running: onCreated + onStart + onResume
+	+ Stopping: onStop
+	+ Being destroy: onDestroy
+	
+	+ Setup the app ready to run in onCreated
+	+ Load user data in onResume
+	+ Save user data in onPause
+	+ Free memory in onDestroy
+	
+- About Android UI elements are class:
+	+ When our app is run and the setContentView method is called from onCreate, the layout is inﬂated from XML UI classes and loaded into memory as usable objects. They are stored in a part of the DVM memory called the heap
+	+ All objects of classes are reference type variables and are just references to the actual objects that are stored on the heap; they are not actual objects.
+	+ Regularly, while our app is running, the DVM will scan the stack, the regular racks of our warehouse, and match up references to objects that are on the heap. And it destroys any objects that it fnds without a matching reference
+	+ if an object has no reference variable, we can't possibly do anything with it anyway because we have no way to access it. This system of garbage collection helps our apps run more effciently by freeing up unused memory
+	+ Any UI element that has its id property set can have its reference retrieved from the heap using the findViewById method, which is part of the Activity, the AppCompatActivity class. As it is part of the class that we extend, we have access to it:
+		myButton = (Button) findViewById(R.id.myButton);
+	* Note myButton can exist in any xml file, but ro run without crash, the xml file that contain myButton must be inflated using setContentView so myButton object can load into heap and ready for using.
+	
+	
+- Ailias resource:
+	+ Create refs.xml file in values folder:
+	<?xml version="1.0" encoding="utf-8"?>
+	<resources>
+		<item name = "activity_dualfragment" type= "layout">
+			@layout/activity_main
+		</item>
+	</resources>
+	
+	+ Create refs.xml file in values-land folder:
+	<?xml version="1.0" encoding="utf-8"?>
+	<resources>
+		<item name = "activity_dualfragment" type= "layout">
+			@layout/activity_main_land
+		</item>
+	</resources>
+	
+	+ Create 2 layout files in layout folder: activity_main.xml and activity_main_land.xml
+	
+	+ We can setContentView like below:
+	setContentView(R.layout.activity_dualfragment);
+	
+	+ This setContentView line of code passes the activity_dualfragment alias and not either of the actual layout fles. The two refs.xml fles each contain an alias for activity_dualfragment that will ensure that a different layout fle is used depending upon which orientation the device is in. So when the device is in the landscape orientation, activity_main_land will be loaded as the view, and when the device is in the portrait orientation, activity_main will be used.
+	
+
+
+	

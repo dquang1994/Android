@@ -1,0 +1,326 @@
+**** HOW TO USE BUTTON ****
+- Method 1:
+	+ Drag button into layout
+	+ Find onClick property and fill the name of method that will be call when the button is clicked:
+		Ex: topClick
+	+ Implement this method in mainActivity:
+		public void topClick(View v){
+			//Do something when button is clicked
+		}
+	
+- Method 2:
+	+ Implements View.OnClickListener on any class. Ex on mainActivity:
+	public class MainActivity extends AppCompatActivity implements View.OnClickListener
+	
+	+ Implements onClick method:
+	public void onClick(View v)
+		//Do something when button is clicked
+	}
+	
+	+ Get reference to button: (inside OnCreate)
+	btnAdd = (Button) findViewById(R.id.btnAdd);
+	
+	+ Set onClickListener: (inside OnCreate)
+	btnAdd.setOnClickListener(class that implements View.OnClickListener);
+	Ex: btnAdd.setOnClickListener(this) if mainActivity implements View.OnClickListener
+	
+- Method 3:
+	+ Get reference to button: (inside OnCreate and must has final)
+		final Button button = (Button) findViewById(R.id.button);
+		
+	+ Set onClickListener: (inside OnCreate):
+		button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                //Do something when button is clicked
+            }
+        });
+	
+**** HOW TO USE RADIO BUTTON ****
+- Drag radio group into layout
+
+- Drag radio button into radio group
+
+- Get reference to radio group and radio button: (inside onCreate)
+	RadioGroup radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
+	RadioButton rbBeijing = (RadioButton) findViewById(R.id.radioButtonBeijing);
+	RadioButton rbLondon = (RadioButton) findViewById(R.id.radioButtonLondon);
+	RadioButton rbnewYork = (RadioButton) findViewById(R.id.radioButtonNewYork);
+
+- Clear check on the radio group: (inside onCreate)
+	radioGroup.clearCheck();
+	
+- setOnCheckedChangeListener on radio group: (inside onCreate)
+	radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+		
+		public void onCheckedChanged(RadioGroup group, int checkedId) {
+			switch (checkedId) {
+				case R.id.radioButtonLondon:
+					//Do something when radio button London is clicked
+					break;
+				case R.id.radioButtonBeijing:
+					//Do something when radio button Beijing is clicked
+					break;
+				case R.id.radioButtonNewYork:
+					//Do something when radio button New York is clicked
+					break;
+			}
+		}
+    });
+
+**** HOW TO USE CHECK BOX ****
+- Drag check box into layout
+
+- Get reference to check box: (inside onCreate)
+	cbTransparency = (CheckBox) findViewById(R.id.checkBoxTransparency);
+	
+- setOnCheckedChangeListener on check box: (inside OnCreate)
+	cbTransparency.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
+	{
+		public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
+		{
+			if(cbTransparency.isChecked()){
+				//Do something when check box is checked
+			}else{
+				//Do something when check box isn't checked
+			}
+		}
+	});
+
+**** HOW TO USE SWITCH ****
+- Drag switch into layout
+
+- Get reference to switch: (inside OnCreate)
+	Switch switch1 = (Switch) findViewById(R.id.switch1);
+	
+- setOnCheckedChangeListener on switch: (inside OnCreate)
+	switch1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+		public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+			if(isChecked){
+				//Do something when switch is on
+			}else{
+				//Do something when switch is off
+			}
+		}
+	});
+	
+**** HOW TO USE WEB VIEW ****
+- Drag web view into layout
+
+- Get reference to web view: (inside OnCreate and must has final)
+	final WebView webView = (WebView) findViewById(R.id.WebView);
+	
+- Browse to url:
+	webView.loadUrl("http://www.cs.yale.edu/homes/tap/Files/hopper-story.html");
+ 	
+**** CREATE LAYOUT BY JAVA CODE ****
+- We can create any widget from nothing just by java code, we can minipulate any property of it like we do with XML UI.
+- We could even create an entire layout in pure Java code by frst creating a new layout, then all the widgets that we want to add, and finally by calling setContentView on the layout that contains our widgets
+	// Create a new LinearLayout
+	LinearLayout linearLayout = new LinearLayout();
+
+	// Create a new Button
+	Button myButton = new Button();
+
+	// Add myButton to the LinearLayout
+	linearLayout.addView(myButton);
+
+	// Make the LinearLayout the main view
+	setContentView(linearLayout);
+	
+**** HOW TO USE LIST VIEW WIDGET ****
+- Create layout for each item in list view: listitem.xml
+
+- Create a class that extends BaseAdapter:
+public class NoteAdapter extends BaseAdapter and works to do in this class
+	
+	+ Create an array contain our object:
+	List<Note> noteList = new ArrayList<Note>();
+
+	+ Override 4 methods: 3 first methods for internal use by BaseAdapter (we just follow this)
+	
+	@Override
+	public int getCount() {
+		return noteList.size();
+	}
+
+	@Override
+	public Note getItem(int whichItem) {
+		return noteList.get(whichItem);
+	}
+
+	@Override
+	public long getItemId(int whichItem) {
+		return whichItem;
+	}
+
+	@Override
+	public View getView(int whichItem, View view, ViewGroup viewGroup)
+	{
+		// Implement this method next
+		return view;
+	}
+	
+	+ Work to do in getView:
+		+ Inflate the layout for each element of list view, because getView will be called when new item is added to array list of base adapter and it will be called many times:
+		ex: 
+		+ item 1 added: getView(whichItem = 0, view of element 0 (first time will null), viewGroup of element 0)
+		+ item 2 added: getView(whichItem = 0, view of element 0 (this time will not null), viewGroup of element 0)
+						getView(whichItem = 1, view of element 1 (this time will null), viewGroup of element 1)
+		+ item 3 added: getView(whichItem = 0, view of element 0, viewGroup of element 0)
+						getView(whichItem = 1, view of element 1, viewGroup of element 1)
+						getView(whichItem = 2, view of element 2, viewGroup of element 2)
+						
+		so we should check if view == null
+		
+		
+		if(view == null){
+			// If not, do so here
+			// First create a LayoutInflater
+			LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+			// Now instantiate view using inflater.inflate
+			// using the listitem layout
+			view = inflater.inflate(R.layout.listitem, viewGroup,false);
+			// The false parameter is neccessary
+			// because of the way that we want to use listitem
+		}// End if
+		
+		+ Get reference to widgets:
+		TextView txtTitle = (TextView) view.findViewById(R.id.txtTitle);
+        TextView txtDescription = (TextView) view.findViewById(R.id.txtDescription);
+		
+		+ Do other works
+				
+		+ Return view
+		
+	+ Should create method for add item to arraylist of this adapter:
+	
+	public void addNote(Note n){
+		noteList.add(n);
+		notifyDataSetChanged(); //when this method is called, getView will be recalled to refresh the UI for list view
+	}
+	
+- Create instance of adapter:
+mNoteAdapter = new NoteAdapter();
+
+- Get reference to list view:
+ListView listNote = (ListView) findViewById(R.id.listView);
+        
+- Set adapter for list view:
+listNote.setAdapter(mNoteAdapter);
+
+- Also handle clicks on the ListView:
+listNote.setOnItemClickListener(new AdapterView.OnItemClickListener()
+{
+	@Override
+	public void onItemClick(AdapterView<?> adapter, View view, int whichItem, long id) {
+		//view is view of item clicked
+		// whichItem is index of item clicked, corresponding with index of item in array of adapter
+	
+	}
+};
+
+- Set long click
+// So we can long click it
+listNote.setLongClickable(true);
+
+// Now to detect long clicks and delete the note
+listNote.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() { 
+	public boolean onItemLongClick(AdapterView<?> adapter, View view, int whichItem, long id) {
+		//Do something when user press and hold
+		return true;
+	}
+});
+
+- ArrayAdapter:
+	private class AddressListAdapter extends ArrayAdapter<NameAndAddress>
+    {
+        /*
+        This simple constructor lets the ArrayAdapter
+        super class
+        know what data to use. Notice we didn't need to bind
+        the data in onCreate.
+        Neither do we need to override getCount,
+        getItem or getItemId
+        It is all handled by ArrayAdapter because it is a more
+        specialized version of Base Adapter
+        */
+        public AddressListAdapter(ArrayList<NameAndAddress> namesAndAddresses) {
+            super(getActivity(), R.layout.list_item, namesAndAddresses);
+        }
+
+        @Override
+        public View getView(int whichItem, View view, ViewGroup viewGroup) {
+            if (view == null) {
+                LayoutInflater inflater = (LayoutInflater) getActivity().getLayoutInflater();
+                view = inflater.inflate(R.layout.list_item, null);
+            }
+
+            // We also have this super-handy getItem method
+            NameAndAddress tempNameAndAddress = getItem(whichItem);
+            TextView txtName = (TextView) view.findViewById(R.id.txtName);
+            txtName.setText(tempNameAndAddress.getName());
+
+            return view;
+        }
+    }
+
+**** HOW TO USE SEEK BAR ****
+- Drag seek bar into layout
+
+- Get reference to seek bar:
+seekBarSpeed = (SeekBar) findViewById(R.id.seekBarSpeed);
+
+- Set onChangeListener:
+seekBarSpeed.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+	@Override
+	public void onProgressChanged(SeekBar seekBar, int value, boolean fromUser) {
+		//Do something when a change in the position of the seek bar was detected
+		//The seek bar has a max value, value variable will change from 0 to max
+	}
+	
+	@Override
+	public void onStartTrackingTouch(SeekBar seekBar) {
+		//Do something when the user has started to change the position
+	}
+	
+	@Override
+	public void onStopTrackingTouch(SeekBar seekBar) {
+		//Do something when the user has finished using the seek bar
+	}
+});
+
+**** HOW TO USE SPINNER ****
+- Drag spinner into layout
+
+- Create string array for value of spinner in value.xml file:
+<string-array name="spinner_options">
+	<item>0</item>
+	<item>1</item>
+	<item>3</item>
+	<item>5</item>
+	<item>10</item>
+</string-array>
+
+- Select spinner mode, usually is dropdown
+
+- Fill entries property the name of array defined before in value.xml file:
+@array/spinner_options
+
+- Get reference to spinner:
+Spinner spinner = (Spinner) findViewById(R.id.spinner);
+
+- setOnItemSelectedListener:
+spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+	@Override
+	public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+		//Do something when an item was selected
+		String temp = String.valueOf(spinner.getSelectedItem());
+		repeats = Integer.valueOf(temp);
+	}
+
+	@Override
+	public void onNothingSelected(AdapterView<?> parentView) {
+	}
+});
+

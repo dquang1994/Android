@@ -1,0 +1,798 @@
+**** HOW TO SHOW A LOG ****
+- Show log on screen using:
+	Toast.makeText(this, "Top button clicked", Toast.LENGTH_SHORT).show();
+	Toast.LENGTH_SHORT => how long to show
+- Show log on logcat windows using:
+	Log.i("info", "The user clicked the top button");
+	Output: info: The user clicked the top button
+
+
+
+
+**** DialogFragment ****
+- Create a class that externs DialogFragment:
+public class DialogNewNote extends DialogFragment
+
+- Override onCreateDialog method and work to do in the onCreateDialog:
+
+	** General:
+	
+	+ Initial builder and inflate the layout:
+	AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
+	+ LayoutInflater inflater = getActivity().getLayoutInflater();
+	View dialogView = inflater.inflate(R.layout.dialog_new_note, null);
+
+	+ Get reference to widgets using dialogView:
+	final EditText editTitle = (EditText) dialogView.findViewById(R.id.editTitle);
+	final EditText editDescription = (EditText) dialogView.findViewById(R.id.editDescription);
+
+	+ Set view and title of dialog:
+	builder.setView(dialogView).setMessage("Add a new note");
+	
+	+ Handle onClickListener, all other works ...
+	
+	+ return builder.create();
+	
+	** If you want only create a simple dialog such as making a choose:
+	
+	+ Initial builder:
+	AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+	
+	+ Set title if dialog:
+	builder.setMessage("Make a selection")
+	
+	+ Create some button using builder:
+		builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int id) {
+				// Do something when button is clicked
+			}
+		})
+               
+		builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int id) {
+				// Do something when button is clicked
+			}
+		});
+	
+	+ return builder.create();
+
+- Show dialog in main activity:
+	
+	+ Create instance:
+	DialogNewNote dialog = new DialogNewNote();
+	
+	+ Show dialog using:
+	dialog.show(getFragmentManager(), "");
+	
+**** ANDROID INTENT ****
+- Switching activity:
+	// Declare and initialize a new Intent object called myIntent
+	Intent myIntent = new Intent(this,SettingsActivity.class);
+
+	// Switch to the SettingsActivity
+	startActivity(myIntent);
+	
+	+ The Intent class has a constructor that takes two arguments. The frst is a reference to the current Activity, this. And the second parameter is the name of the Activity we want to open, SettingsActivity.class. The .class on the end of SettingsActivity makes it the full name of the Activity, as declared in the AndroidManifest.xml file.
+
+- Passing data between activities:
+	+ We can add data to Intent like this:
+	// Create a String called username
+	// and set its value to bob
+	String username = "Bob";
+	
+	// Create a new Intent as we have already seen
+	Intent myIntent = new Intent(this,SettingsActivity.class);
+	
+	// Add the username String to the Intent
+	// using the putExtra method of the Intent class
+	myIntent.putExtra("USER_NAME", username);
+	
+	// Start the new Activity as we have before
+	startActivity(myIntent);
+
+	+ In SettingsActivity, we could then retrieve the string like this:
+	// Here we need an Intent also
+	// But the default constructor will do
+	// as we are not switching Activity
+	Intent myIntent = new Intent();
+	
+	// Initialize username with the passed in String
+	String username = intent.getExtra().getStringKey("USER_NAME");
+	
+**** DATA PERSISTENT ****
+- Method 1: Using SharedPreferences class for load and saving typical type data (boolean, int, float ...)
+	+ Declare and initial:
+	private SharedPreferences mPrefs;
+    private SharedPreferences.Editor mEditor;
+	
+	//First string represent for a bunk of data, Mode_Private means that any class, in this app only, can access it
+	mPrefs = getSharedPreferences("Note to self", MODE_PRIVATE);
+    mEditor = mPrefs.edit();
+	
+	+ Save data:
+	mEditor.putBoolean("sound", mSound);
+	mEditor.putInt("anim option", mAnimOption);
+	// That means, the value of mSound and mAnimOption is stored in "Note to self" data bunk
+	
+	mEditor.commit();
+	
+	+ Load data:
+	private SharedPreferences mPrefs;
+	mPrefs = getSharedPreferences("Note to self", MODE_PRIVATE);
+	//mPrefs associate with "Note to self" data bunk, data will be loaded from there
+	
+	mSound = mPrefs.getBoolean("sound", true);
+	mAnimOption = mPrefs.getInt("anim option", FAST);
+	
+- Method 2: Using JSON for load and save object
+	+ Assume that we have a class that has some member variable like below:
+	public class Note {
+		private String mTitle;
+		private String mDescription;
+		private boolean mIdea;
+		private boolean mTodo;
+		private boolean mImportant;
+	}
+
+
+	+ Create a method that save all member variable of the class which we want to save and load its object, into JSON object. Now we have a JSON object that represent for all member variable of this class.
+	public class Note {
+		private String mTitle;
+		private String mDescription;
+		private boolean mIdea;
+		private boolean mTodo;
+		private boolean mImportant;
+	
+		public JSONObject convertToJSON() throws JSONException{
+			JSONObject jo = new JSONObject();
+			jo.put(JSON_TITLE, mTitle);
+			jo.put(JSON_DESCRIPTION, mDescription);
+			jo.put(JSON_IDEA, mIdea);
+			jo.put(JSON_TODO, mTodo);
+			jo.put(JSON_IMPORTANT, mImportant);
+
+			return jo;
+		}
+	}
+	
+	+ Create a constructor that load the value for all member variable:
+	public class Note {
+		private String mTitle;
+		private String mDescription;
+		private boolean mIdea;
+		private boolean mTodo;
+		private boolean mImportant;
+	
+		public JSONObject convertToJSON() throws JSONException{
+			JSONObject jo = new JSONObject();
+			jo.put(JSON_TITLE, mTitle);
+			jo.put(JSON_DESCRIPTION, mDescription);
+			jo.put(JSON_IDEA, mIdea);
+			jo.put(JSON_TODO, mTodo);
+			jo.put(JSON_IMPORTANT, mImportant);
+
+			return jo;
+		}
+		
+		public Note(JSONObject jo) throws JSONException {
+			mTitle = jo.getString(JSON_TITLE);
+			mDescription = jo.getString(JSON_DESCRIPTION);
+			mIdea = jo.getBoolean(JSON_IDEA);
+			mTodo = jo.getBoolean(JSON_TODO);
+			mImportant = jo.getBoolean(JSON_IMPORTANT);
+		}
+	}
+	
+	+ Create a class for serialization:
+	
+	public class JSONSerializer {
+		private String mFilename;
+		private Context mContext;
+
+		public JSONSerializer(String fn, Context con){
+			mFilename = fn;
+			mContext = con;
+		}
+
+		public void save(List<Note> notes) throws IOException, JSONException {
+			// Make an array in JSON format
+			JSONArray jArray = new JSONArray();
+
+			// And load it with the notes
+			for (Note n : notes)
+				jArray.put(n.convertToJSON());
+
+			// Now write it to the private disk space of our app
+			Writer writer = null;
+			try {
+				OutputStream out = mContext.openFileOutput(mFilename, mContext.MODE_PRIVATE);
+				writer = new OutputStreamWriter(out);
+				writer.write(jArray.toString());
+			} finally {
+				if (writer != null) {
+					writer.close();
+				}
+			}
+		}
+
+		public ArrayList<Note> load() throws IOException, JSONException{
+			ArrayList<Note> noteList = new ArrayList<Note>();
+
+			BufferedReader reader = null;
+			try {
+				InputStream in = mContext.openFileInput(mFilename);
+				reader = new BufferedReader(new InputStreamReader(in));
+
+				StringBuilder jsonString = new StringBuilder();
+				String line = null;
+
+				while ((line = reader.readLine()) != null) {
+					jsonString.append(line);
+				}
+
+				JSONArray jArray = (JSONArray) new JSONTokener(jsonString.toString()).nextValue();
+				for (int i = 0; i < jArray.length(); i++) {
+					noteList.add(new Note(jArray.getJSONObject(i)));
+				}
+			} catch (FileNotFoundException e) {
+				// we will ignore this one, since it happens
+				// when we start fresh. You could add a log here.
+			} finally {// This will always run
+				if (reader != null)
+					reader.close();
+			}
+
+			return noteList;
+		}
+	}
+	
+	+ Load and save data by load and save method of this serialization class
+	
+**** UI ANIMATION ****
+- Declare variable for animation:
+Animation animFadeIn;
+
+- Create animation code in xml file:
+	+ Create a folder name anim on res
+	
+	+ Create animation file in this folder:
+	<?xml version="1.0" encoding="utf-8"?>
+	<set xmlns:android="http://schemas.android.com/apk/res/android"
+		android:fillAfter="true" >
+		<alpha
+			android:fromAlpha="0.0"
+			android:interpolator="@android:anim/accelerate_interpolator"
+			android:toAlpha="1.0" />
+	</set>
+	
+		++ Fading in and out:
+		<alpha
+			android:fromAlpha="0.0"
+			android:toAlpha="1.0" />	
+			
+		++ Movement
+		<translate
+			android:fromXDelta="-100%"
+			android:toXDelta="0%"/>
+			
+		++ Scaling or stretching
+		<scale
+			android:fromXScale="1.0"
+			android:fromYScale="0.0"
+			/>
+			
+		++ Controlling the duration
+		android:duration="666"
+		android:startOffset="333"
+		
+		++ Rotating animations
+		<rotate android:fromDegrees="360"
+			android:toDegrees="0"
+			/>
+			
+		++ Repeating animations
+		android:repeatMode="reverse"
+		android:repeatCount="10"
+		
+	+ Some example animations code:
+		++ Bounce
+		<?xml version="1.0" encoding="utf-8"?>
+		<set xmlns:android="http://schemas.android.com/apk/res/android"
+			android:fillAfter="true"
+			android:interpolator="@android:anim/bounce_interpolator">
+			<scale
+				android:fromXScale="1.0"
+				android:fromYScale="0.0"
+				android:toXScale="1.0"
+				android:toYScale="1.0" />
+		</set>
+		
+		++ Fade in
+		<?xml version="1.0" encoding="utf-8"?>
+		<set xmlns:android="http://schemas.android.com/apk/res/android"
+			android:fillAfter="true" >
+			<alpha
+				android:fromAlpha="0.0"
+				android:interpolator="@android:anim/accelerate_interpolator"
+				android:toAlpha="1.0" />
+		</set>
+		
+		++ Fade out
+		<?xml version="1.0" encoding="utf-8"?>
+		<set xmlns:android="http://schemas.android.com/apk/res/android"
+			android:fillAfter="true" >
+			<alpha
+				android:fromAlpha="1.0"
+				android:interpolator="@android:anim/accelerate_interpolator"
+				android:toAlpha="0.0" />
+		</set>
+		
+		++ Fade in out
+		<?xml version="1.0" encoding="utf-8"?>
+		<set xmlns:android="http://schemas.android.com/apk/res/android"
+			android:fillAfter="true" >
+			<alpha
+				android:fromAlpha="0.0"
+				android:interpolator="@android:anim/accelerate_interpolator"
+				android:toAlpha="1.0" />
+			<alpha
+				android:fromAlpha="1.0"
+				android:interpolator="@android:anim/accelerate_interpolator"
+				android:toAlpha="0.0" />
+		</set>
+		
+		++ Flash
+		<?xml version="1.0" encoding="utf-8"?>
+		<set xmlns:android="http://schemas.android.com/apk/res/android">
+			<alpha android:fromAlpha="0.0"
+				android:toAlpha="1.0"
+				android:interpolator="@android:anim/accelerate_interpolator"
+				android:repeatMode="reverse"
+				android:repeatCount="10"/>
+		</set>		
+		
+		++ Left to right
+		<?xml version="1.0" encoding="utf-8"?>
+		<set xmlns:android="http://schemas.android.com/apk/res/android">
+			<translate
+				android:fromXDelta="-500%"
+				android:toXDelta="0%"/>
+		</set>
+		
+		++ Right to left
+		<?xml version="1.0" encoding="utf-8"?>
+		<set xmlns:android="http://schemas.android.com/apk/res/android">
+			<translate
+				android:fillAfter="false"
+				android:fromXDelta="500%"
+				android:toXDelta="0%"/>
+		</set>
+		
+		++ Rotate left
+		<?xml version="1.0" encoding="utf-8"?>
+		<set xmlns:android="http://schemas.android.com/apk/res/android">
+			<rotate android:fromDegrees="360"
+				android:toDegrees="0"
+				android:pivotX="50%"
+				android:pivotY="50%"
+				android:interpolator="@android:anim/cycle_interpolator"/>
+		</set>
+		
+		++ Rotate right
+		<?xml version="1.0" encoding="utf-8"?>
+		<set xmlns:android="http://schemas.android.com/apk/res/android">
+			<rotate android:fromDegrees="0"
+				android:toDegrees="360"
+				android:pivotX="50%"
+				android:pivotY="50%"
+				android:interpolator="@android:anim/cycle_interpolator"/>
+		</set>
+		
+		++ Top to bottom
+		<?xml version="1.0" encoding="utf-8"?>
+		<set xmlns:android="http://schemas.android.com/apk/res/android">
+			<translate
+				android:fillAfter="false"
+				android:fromYDelta="-100%"
+				android:toYDelta="0%"/>
+		</set>
+		
+		++ Zoom in
+		<?xml version="1.0" encoding="utf-8"?>
+		<set xmlns:android="http://schemas.android.com/apk/res/android"
+			android:fillAfter="true" >
+			<scale
+				android:fromXScale="1.0"
+				android:fromYScale="1.0"
+				android:toXScale="2.0"
+				android:toYScale="2.0"
+				android:pivotX="50%"
+				android:pivotY="50%" />
+		</set>
+		
+		++ Zoom out
+		<?xml version="1.0" encoding="utf-8"?>
+		<set xmlns:android="http://schemas.android.com/apk/res/android"
+			android:fillAfter="true" >
+			<scale
+				android:fromXScale="1.0"
+				android:fromYScale="1.0"
+				android:toXScale="0.5"
+				android:toYScale="0.5"
+				android:pivotX="50%"
+				android:pivotY="50%" />
+		</set>
+		
+- Load animation on this variable:
+animFadeIn = AnimationUtils.loadAnimation(this, R.anim.fade_in);
+
+- Set duration: 
+animFadeIn.setDuration(ms);
+
+- Start animation on any UI widget:
+imageView.startAnimation(animFadeIn);
+
+- Can also set onClickListener:
+animFadeIn.setAnimationListener(class that implements Animation.AnimationListener);
+
+- Implements Animation.AnimationListener on any class and override 3 methods:
+	@Override
+    public void onAnimationEnd(Animation animation) {
+        //Do something when animation stop
+    }
+
+    @Override
+    public void onAnimationRepeat(Animation animation) {
+		//Do something each time animation repeat
+    }
+
+    @Override
+    public void onAnimationStart(Animation animation) {
+        //Do something when animation start
+    }
+	
+**** SOUND POOL ****
+- Create some variable for sound identifier and sound pool class:
+	int idFX1 = -1;
+    int idFX2 = -1;
+    int idFX3 = -1;
+    int nowPlaying = -1;
+	
+	SoundPool sp;
+	
+- Initialize sound pool:
+	if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+		AudioAttributes audioAttributes = new AudioAttributes.Builder()
+				.setUsage(AudioAttributes. USAGE_ASSISTANCE_SONIFICATION)
+				.setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+				.build();
+		sp = new SoundPool.Builder()
+				.setMaxStreams(5)
+				.setAudioAttributes(audioAttributes)
+				.build();
+	} else {
+		sp = new SoundPool(5, AudioManager.STREAM_MUSIC, 0);
+	}
+
+- Load sound files into memory:
+		try{
+			// Create objects of the 2 required classes
+			AssetManager assetManager = this.getAssets();
+			AssetFileDescriptor descriptor;
+			
+			// Load our fx in memory ready for use
+			descriptor = assetManager.openFd("fx1.ogg");
+			idFX1 = sp.load(descriptor, 0);
+			descriptor = assetManager.openFd("fx2.ogg");
+			idFX2 = sp.load(descriptor, 0);
+			descriptor = assetManager.openFd("fx3.ogg");
+			idFX3 = sp.load(descriptor, 0);
+		}catch(IOException e){
+			// Print an error message to the console
+			Log.e("error", "failed to load sound files");
+		}
+
+- Playing a sound:
+nowPlaying = sp.play(idFX1, volume, volume, 0, repeats, 1);
+
+The parameters of the play method are: the ID of the sound effect, the left-hand side speaker volume, the right-hand side speaker volume, the priority over other sounds, the number of times to repeat the sound, and the rate/speed at which it is played (1 is the normal rate).
+
+- Set a volume:
+sp.setVolume(nowPlaying, volume, volume);
+
+- Stop a sound:
+sp.stop(nowPlaying);
+
+**** DEVICE DETECTION ****
+// What is the orientation?
+Display display = getWindowManager().getDefaultDisplay();
+display.getRotation();
+=> 0 or 1, Surfcae.ROTATION_0 equals 0 (portrait) and Surface.ROTATION_180 equals 1 (landscape)
+
+
+// What is the resolution?
+Point xy = new Point();
+display.getSize(xy);
+txtResolution.setText("x = " + xy.x + " y = " + xy.y);
+=> vertical and horizontal resolution
+
+**** CONFIGURATION QUALIFIER ****
+- Create a folder name layout-land, in this folder create activity_main.xml (same name with layout file in layout folder)
+
+- When phone is in portrait, activity_main.xml in layout folder will be used. When phone in landscape, activity_main.xml in layout-land folder will be used.
+
+- If we got a reference to TextView (or any other widget) in our Java code, the same exact code would work as long as the id values in the different layouts were the same. Effectively, we have two different layouts controlled by the same Java code.
+
+**** FRAGMENT ****
+- Fragment has lifecycle like activity
+	onCreate
+	In the onCreate method, we can initialize variables and do almost all the things we would typically do in the Activity onCreate method. The big exception to this is initializing our UI
+	
+	onCreateView
+	In this method, we will, as the name suggests, get a reference to any of our UI widgets, set up anonymous classes to listen for clicks, and do more besides these tasks
+	
+	onAttach and onDetach
+	These methods are called just before the Fragment is actually put into use/taken out of use.
+
+	onStart, onPause, and onStop
+	In these methods, we can take certain actions such as creating or deleting objects or saving data, just like we did with their counterparts that were based on Activity.
+	
+- Simple fragment
+	+ Specify which layout will hold fragment and set an id for it:
+	Ex: Contraints layout in activity_main.xml: id = fragmentHolder
+	
+	+ Create layout for fragment:
+	Ex: fragment_layout.xml
+	
+	+ Create a class extends Fragment:
+		++ Initial variable or something in onCreate
+		++ Inflate fragment_layout, get reference, set onClickListener in onCreateView
+	
+	public class SimpleFragment extends Fragment {
+		// member variables accessible from anywhere in this fragment
+		String myString;
+		Button myButton;
+
+		@Override
+		public void onCreate(Bundle savedInstanceState){
+			super.onCreate(savedInstanceState);
+			myString = "Hello from SimpleFragment";
+		}
+
+		@Override
+		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+			View view = inflater.inflate(R.layout.fragment_layout, container, false);
+			myButton = (Button) view.findViewById(R.id.button);
+
+			myButton.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					Toast.makeText(getActivity(),myString ,
+							Toast.LENGTH_SHORT).show();
+				}
+			});
+
+			return view;
+		}
+	}
+	
+	+ Add fragment into holder in main_activity: (in onCreate)
+	// Get a fragment manager
+	FragmentManager fManager = getFragmentManager();
+	
+	// Create a new fragment using the manager
+	// Passing in the id of the layout to hold it
+	Fragment frag = fManager.findFragmentById(R.id.fragmentHolder); //find fragment that associated with holder, null if not
+	// Check the fragment has not already been initialized
+	if(frag == null){
+		// Initialize the fragment based on our SimpleFragment
+		frag = new SimpleFragment();
+		fManager.beginTransaction()
+				.add(R.id.fragmentHolder, frag)
+				.commit();
+	}
+	
+**** LIST FRAGMENT ****
+- List fragment is fragment which has listView build-in
+
+- Specify which layout will hold fragment and set an id for it:
+	Ex: Contraints layout in activity_main.xml: id = listFragmentHolder
+	
+- Create layout for each item of list fragment:
+	Ex: list_item.xml
+	
+- Create a class extends ListFragment:
+	+ Initial variable, create instance of adapter and setListAdapter in onCreate
+	+ Implements an adapter (can BaseAdapter or ArrayAdapter):
+		++ Create constructor: like below: arguments is context (activity that create fragment, layout, array. 	
+		public AddressListAdapter(ArrayList<NameAndAddress> namesAndAddresses) {
+            super(getActivity(), R.layout.list_item, namesAndAddresses);
+        }
+		
+		++ Inflate layout in getView:
+		if (view == null) {
+			LayoutInflater inflater = (LayoutInflater) getActivity().getLayoutInflater();
+			view = inflater.inflate(R.layout.list_item, null);
+        }
+
+
+public class AddressListFragment extends ListFragment {
+    private ArrayList<NameAndAddress> mNamesAndAddresses;
+
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        //Do something when an item was clicked
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        mNamesAndAddresses = AddressBook.getInstance().getBook();
+
+        AddressListAdapter adapter = new AddressListAdapter(mNamesAndAddresses);
+        setListAdapter(adapter);
+    }
+
+    private class AddressListAdapter extends ArrayAdapter<NameAndAddress>
+    {
+        /*
+        This simple constructor lets the ArrayAdapter
+        super class
+        know what data to use. Notice we didn't need to bind
+        the data in onCreate.
+        Neither do we need to override getCount,
+        getItem or getItemId
+        It is all handled by ArrayAdapter because it is a more
+        specialized version of Base Adapter
+        */
+        public AddressListAdapter(ArrayList<NameAndAddress> namesAndAddresses) {
+            super(getActivity(), R.layout.list_item, namesAndAddresses);
+        }
+
+        @Override
+        public View getView(int whichItem, View view, ViewGroup viewGroup) {
+            if (view == null) {
+                LayoutInflater inflater = (LayoutInflater) getActivity().getLayoutInflater();
+                view = inflater.inflate(R.layout.list_item, null);
+            }
+
+            // We also have this super-handy getItem method
+            NameAndAddress tempNameAndAddress = getItem(whichItem);
+            TextView txtName = (TextView) view.findViewById(R.id.txtName);
+            txtName.setText(tempNameAndAddress.getName());
+
+            return view;
+        }
+    }
+}
+
+**** SET ARGUMENT FOR FRAGMENT ****
+- Set arguments like this:
+	Bundle args = new Bundle();
+	args.putInt("Position", position);
+	AddressDetailFragment frag = new AddressDetailFragment();
+	frag.setArguments(args);
+	
+- These arguments can retrieve when fragment is created an show on the holder. So we need add code in onCreate of AddressDetailFragment class to retrieve these arguments like below:
+int position = (int)getArguments().getInt("Position");
+	
+**** SINGLETONS ****
+- A singleton, as the name suggests, is a class where there can only be one instance of that class
+
+- Example about singletons:
+
+	+ First we have Movie class:
+
+	public class Movie{
+		private String mTitle;
+		private boolean mOnLoan;
+		
+		public void setTitle(String title){
+			mTitle = title;
+		}
+		
+		public String getTitle(){
+			return mTitle;
+		}
+		
+		public void setLoanStatus(boolean loanStatus){
+			mOnLoan = loanStatus;
+		}
+		
+		public boolean getLoanStatus(){
+			return mLoanStatus;
+		}
+	}
+	
+	+ Singletons class:
+	
+	public class RentalStore {
+		// I am instantiating an instance of myself - weird!
+		// This is the only RentalStore that will ever exist
+		private static RentalStore ourInstance = new RentalStore();
+		
+		private ArrayList <Movie> mMovies;
+		
+		// Anyone who wants my one and only instance will
+		// need to use this method
+		public static RentalStore getInstance() {
+			return ourInstance;
+		}
+		
+		// Here is the constructor and it is private
+		// So only this class itself can ever instantiate it
+		private RentalStore() {
+			mMovies = new ArrayList<Movie>();
+		}
+		
+		// Anyone can get the list of movies though
+		public ArrayList <Movie> getMovies(){
+			return mMovies;
+		}
+	}
+	
+	+ In this class, constructor is private so that only this class can create instance itseft. This means that nobody can ever instantiate RentalStore, but everybody can get a reference to the one and only RentalStore stored in our singleton
+	
+	+ We can now go about using RentalShop in our code like this:
+	RentalShop myRentalShop = RentalShop.getInstance();
+	
+	+ We can then get hold of the list of movies like this:
+	ArrayList <Movie> myMovies = myRentalShop.getMovies();
+	
+	+ And if later on in our code, probably in another Activity or Fragment, we have code like this, we can be confdent that the code is working on exactly the same set of data as the code in the other Activity or Fragment:
+	
+	RentalShop someRentalShop = RentalShop.getInstance();
+	ArrayList <Movie> myMovies = someRentalShop.getMovies();
+	
+**** INTER-FRAGMENT COMMUNICATIONS ****
+- Communications between fragment and activity that created it:
+	+ Create an interface:
+	public interface ActivityComs {
+		void onListItemSelected(Movie movie);
+	}
+	
+	+ Declare an instance of the interface within any Fragment that needs to communicate:
+	private ActivityComs mActivityComs;
+	
+	+ Override onAttach and onDetach like below:
+	@Override
+	public void onAttach(Activity activity) {
+		super.onAttach(activity);
+		
+		/*
+		activity is a ActivityComs but must
+		still be explicitly cast to the type
+		*/
+		mActivityComs = (ActivityComs)activity;
+	}
+	
+	@Override
+	public void onDetach() {
+		super.onDetach();
+		
+		/*
+		Set the reference to null.
+		Now there is no active reference
+		the garbage collector will clean it up
+		*/
+		mActivityComs = null;
+	}
+	
+	+ Note that onAttach receives Activity as a parameter. This is the parent Activity where Fragment is created. So, provided Activity implements the interface, when we call the interfaces method from Fragment, we will be calling the overridden method in Activity
+	
+	+ And most importantly, we can, of course, call its one and only method on the event that we want the communication to take place on:
+	public void onListItemClick(ListView l, View v, int position, long id)
+	{
+		Movie movie = ((MovieListAdapter)getListAdapter()).getItem(position);
+		mActivityComs.onListItemSelected(movie);
+	}
+	
+	+ So if the Activity that created Fragment has implemented ActivityComs, the new Movie object will be passed into the overridden onListItemSelected method in Activity:
+	public class MainActivity extends AppCompatActivity implements ActivityComs{
+	
+	+ And then, we must override the method to handle the data that is passed in:
+	public void onListItemSelected(Movie movie) {
+		// Do whatever you want with the Movie
+	}
+	
