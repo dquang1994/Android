@@ -797,23 +797,75 @@ int position = (int)getArguments().getInt("Position");
 	}
 	
 **** HOW TO CAPTURE AN IMAGE FROM CAMERA ****
-- Declare a variable that hold a id for the camera request:
-private static final int CAMERA_REQUEST = 123;
+* Method 1: Get data directly from intent
+	- Add permission in AndroidManifest:
+	<uses-permission android:name="android.permission.CAMERA" />
+	<uses-feature android:name="android.hardware.camera" />
 
-- Declare an image view to display the taken photo:
-private ImageView imageView;
+	- Declare a variable that hold a id for the camera request:
+	private static final int CAMERA_REQUEST = 123;
 
-- Start camera request:
-Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-startActivityForResult(cameraIntent, CAMERA_REQUEST);
+	- Declare an image view to display the taken photo:
+	private ImageView imageView;
 
-- Capture the result in onActivityResult:
-protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-	if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {
-		Bitmap photo = (Bitmap) data.getExtras().get("data");
-		imageView.setImageBitmap(photo);
+	- Start camera request:
+	Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+	startActivityForResult(cameraIntent, CAMERA_REQUEST);
+
+	- Capture the result in onActivityResult:
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {
+			Bitmap photo = (Bitmap) data.getExtras().get("data");
+			imageView.setImageBitmap(photo);
+		}
 	}
-}
 
-- Note that we must check the request code that match the request code when we call startActivity and result code OK.
+	- Note that we must check the request code that match the request code when we call startActivity and result code OK.
 
+* Method 2: create a temp file and let the intent add data of taken image into this temp file
+	- Add permission:
+	<uses-permission android:name="android.permission.CAMERA" />
+	<uses-feature android:name="android.hardware.camera" />
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+	
+	- Declare a variable that hold a id for the camera request:
+	private static final int CAMERA_REQUEST = 123;
+
+	- Declare an image view to display the taken photo:
+	private ImageView imageView;
+	
+	- Declare an URI that is the link to where taken image is stored:
+	private Uri mImageUri = Uri.EMPTY;
+	
+	- Create a temp file that will contain the image:
+	String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+	String imageFileName = "JPEG_" + timeStamp + "_";
+	File storageDir = Environment.getExternalStoragePublicDirectory(
+			Environment.DIRECTORY_PICTURES);
+	File photoFile = File.createTempFile(
+			imageFileName, // filename
+			".jpg", // extension
+			storageDir // folder
+	);
+	
+	- Start intent and store a link to temp file above to mImageUri:
+	Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+	mImageUri = Uri.fromFile(photoFile);
+	//Camera app will put data into this URI by second argument
+	cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photoFile));
+	startActivityForResult(cameraIntent, CAMERA_REQUEST);
+	
+	- Get result:
+	@Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {
+            try {
+                mImageView.setImageURI(mImageUri);
+            }catch(Exception e){
+                Log.e("Error","Uri not set");
+            }
+        }else{
+            mImageUri = Uri.EMPTY;
+        }
+    }
+	
