@@ -1,9 +1,9 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /home/quangnguyen/AndroidStudioProjects/WhereItsSnap/app/src/main/AndroidManifest.xml:2:1-21:12
-INJECTED from /home/quangnguyen/AndroidStudioProjects/WhereItsSnap/app/src/main/AndroidManifest.xml:2:1-21:12
-INJECTED from /home/quangnguyen/AndroidStudioProjects/WhereItsSnap/app/src/main/AndroidManifest.xml:2:1-21:12
-INJECTED from /home/quangnguyen/AndroidStudioProjects/WhereItsSnap/app/src/main/AndroidManifest.xml:2:1-21:12
+ADDED from /home/quangnguyen/AndroidStudioProjects/WhereItsSnap/app/src/main/AndroidManifest.xml:2:1-23:12
+INJECTED from /home/quangnguyen/AndroidStudioProjects/WhereItsSnap/app/src/main/AndroidManifest.xml:2:1-23:12
+INJECTED from /home/quangnguyen/AndroidStudioProjects/WhereItsSnap/app/src/main/AndroidManifest.xml:2:1-23:12
+INJECTED from /home/quangnguyen/AndroidStudioProjects/WhereItsSnap/app/src/main/AndroidManifest.xml:2:1-23:12
 MERGED from [com.android.support:appcompat-v7:28.0.0-alpha3] /home/quangnguyen/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0-alpha3.aar/d56ae17bf5bb49a7a736101a3aad59c9/AndroidManifest.xml:17:1-22:12
 MERGED from [com.android.support.constraint:constraint-layout:1.1.2] /home/quangnguyen/.gradle/caches/transforms-1/files-1.1/constraint-layout-1.1.2.aar/526b5022c54b8d1764695b1592574c01/AndroidManifest.xml:2:1-11:12
 MERGED from [com.android.support:support-fragment:28.0.0-alpha3] /home/quangnguyen/.gradle/caches/transforms-1/files-1.1/support-fragment-28.0.0-alpha3.aar/ce76c4b437bcc3f841988334d1823fbd/AndroidManifest.xml:17:1-22:12
@@ -30,20 +30,20 @@ MERGED from [android.arch.lifecycle:viewmodel:1.1.1] /home/quangnguyen/.gradle/c
 MERGED from [android.arch.lifecycle:livedata-core:1.1.1] /home/quangnguyen/.gradle/caches/transforms-1/files-1.1/livedata-core-1.1.1.aar/63d51cc2eccc615b17e165955d2e8fce/AndroidManifest.xml:17:1-22:12
 MERGED from [android.arch.core:runtime:1.1.1] /home/quangnguyen/.gradle/caches/transforms-1/files-1.1/runtime-1.1.1.aar/c1e807f7c314fe03d89f6af4d45a24e3/AndroidManifest.xml:17:1-22:12
 MERGED from [com.android.support:interpolator:28.0.0-alpha3] /home/quangnguyen/.gradle/caches/transforms-1/files-1.1/interpolator-28.0.0-alpha3.aar/7dedf92095b786daf1be321145bda389/AndroidManifest.xml:17:1-22:12
-INJECTED from /home/quangnguyen/AndroidStudioProjects/WhereItsSnap/app/src/main/AndroidManifest.xml:2:1-21:12
-INJECTED from /home/quangnguyen/AndroidStudioProjects/WhereItsSnap/app/src/main/AndroidManifest.xml:2:1-21:12
-INJECTED from /home/quangnguyen/AndroidStudioProjects/WhereItsSnap/app/src/main/AndroidManifest.xml:2:1-21:12
+INJECTED from /home/quangnguyen/AndroidStudioProjects/WhereItsSnap/app/src/main/AndroidManifest.xml:2:1-23:12
+INJECTED from /home/quangnguyen/AndroidStudioProjects/WhereItsSnap/app/src/main/AndroidManifest.xml:2:1-23:12
+INJECTED from /home/quangnguyen/AndroidStudioProjects/WhereItsSnap/app/src/main/AndroidManifest.xml:2:1-23:12
 	package
 		ADDED from /home/quangnguyen/AndroidStudioProjects/WhereItsSnap/app/src/main/AndroidManifest.xml:3:5-51
 		INJECTED from /home/quangnguyen/AndroidStudioProjects/WhereItsSnap/app/src/main/AndroidManifest.xml
 		INJECTED from /home/quangnguyen/AndroidStudioProjects/WhereItsSnap/app/src/main/AndroidManifest.xml
 	android:versionName
 		INJECTED from /home/quangnguyen/AndroidStudioProjects/WhereItsSnap/app/src/main/AndroidManifest.xml
-		ADDED from /home/quangnguyen/AndroidStudioProjects/WhereItsSnap/app/src/main/AndroidManifest.xml:2:1-21:12
+		ADDED from /home/quangnguyen/AndroidStudioProjects/WhereItsSnap/app/src/main/AndroidManifest.xml:2:1-23:12
 		INJECTED from /home/quangnguyen/AndroidStudioProjects/WhereItsSnap/app/src/main/AndroidManifest.xml
 	android:versionCode
 		INJECTED from /home/quangnguyen/AndroidStudioProjects/WhereItsSnap/app/src/main/AndroidManifest.xml
-		ADDED from /home/quangnguyen/AndroidStudioProjects/WhereItsSnap/app/src/main/AndroidManifest.xml:2:1-21:12
+		ADDED from /home/quangnguyen/AndroidStudioProjects/WhereItsSnap/app/src/main/AndroidManifest.xml:2:1-23:12
 		INJECTED from /home/quangnguyen/AndroidStudioProjects/WhereItsSnap/app/src/main/AndroidManifest.xml
 	xmlns:android
 		ADDED from /home/quangnguyen/AndroidStudioProjects/WhereItsSnap/app/src/main/AndroidManifest.xml:2:11-69
@@ -83,6 +83,10 @@ category#android.intent.category.LAUNCHER
 ADDED from /home/quangnguyen/AndroidStudioProjects/WhereItsSnap/app/src/main/AndroidManifest.xml:16:17-77
 	android:name
 		ADDED from /home/quangnguyen/AndroidStudioProjects/WhereItsSnap/app/src/main/AndroidManifest.xml:16:27-74
+uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
+ADDED from /home/quangnguyen/AndroidStudioProjects/WhereItsSnap/app/src/main/AndroidManifest.xml:21:5-81
+	android:name
+		ADDED from /home/quangnguyen/AndroidStudioProjects/WhereItsSnap/app/src/main/AndroidManifest.xml:21:22-78
 uses-sdk
 INJECTED from /home/quangnguyen/AndroidStudioProjects/WhereItsSnap/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from /home/quangnguyen/AndroidStudioProjects/WhereItsSnap/app/src/main/AndroidManifest.xml
