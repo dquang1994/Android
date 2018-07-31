@@ -324,3 +324,90 @@ spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 	}
 });
 
+**** HOW TO USE DRAWER LAYOUT ****
+- Create drawer layout:
+	+ The xml code for drawer layout will something like below:
+	<?xml version="1.0" encoding="utf-8"?>
+	<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+		android:layout_width="match_parent" android:layout_height="match_parent">
+
+		<android.support.v4.widget.DrawerLayout
+			xmlns:android="http://schemas.android.com/apk/res/android"
+			xmlns:tools="http://schemas.android.com/tools"
+			android:id="@+id/drawerLayout"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent">
+			<!-- For our fragments-->
+			<RelativeLayout
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				tools:context=".MainActivity"
+				android:background="#ffffffff"
+				android:id="@+id/fragmentHolder">
+			</RelativeLayout>
+			<!-- Side navigation drawer UI -->
+			<ListView
+				android:id="@+id/navList"
+				android:layout_width="200dp"
+				android:layout_height="match_parent"
+				android:layout_gravity="left|start"
+				android:background="#ffeeeeee"/>
+		</android.support.v4.widget.DrawerLayout>
+
+	</RelativeLayout>
+
+	+ Inside the drawer layout:
+		++ A widget (usually is root layout like relative/constrain/frame layout) which has width and height "match_parent" is primary layout which will be display first and overrided when drawer is open.
+		++ A widget that height is "match_parent" but width is < "match_parent" and has layout_gravity is drawer (can swipe in and out)
+			+++ layout_gravity="left": drawer is swiped out from the left edge
+			+++ layout_gravity="right": drawer is swiped out from the right edge
+	
+- Create a setup drawer function and call it in OnCreate:
+    private void setupDrawer() {
+        mDrawerToggle = new ActionBarDrawerToggle
+                (this, mDrawerLayout, R.string.drawer_open,
+                        R.string.drawer_close) {
+
+            // Called when drawer is opened
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+                getSupportActionBar().setTitle("Make selection");
+                // triggers call to onPrepareOptionsMenu
+                invalidateOptionsMenu();
+            }
+
+            // Called when drawer is closed
+            public void onDrawerClosed(View view) {
+                super.onDrawerClosed(view);
+                getSupportActionBar().setTitle(mActivityTitle);
+                // triggers call to onPrepareOptionsMenu
+                invalidateOptionsMenu();
+            }
+        };
+        mDrawerToggle.setDrawerIndicatorEnabled(true);
+
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
+    }
+	
+- Override 2 methods:
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        mDrawerToggle.syncState();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        mDrawerToggle.onConfigurationChanged(newConfig);
+    }
+	
+- In onCreate:
+	getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+	getSupportActionBar().setHomeButtonEnabled(true);
+		
+- In onOptionsItemSelected:
+	if (mDrawerToggle.onOptionsItemSelected(item)) {
+		return true;
+    }
+	

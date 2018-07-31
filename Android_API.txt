@@ -796,3 +796,24 @@ int position = (int)getArguments().getInt("Position");
 		// Do whatever you want with the Movie
 	}
 	
+**** HOW TO CAPTURE AN IMAGE FROM CAMERA ****
+- Declare a variable that hold a id for the camera request:
+private static final int CAMERA_REQUEST = 123;
+
+- Declare an image view to display the taken photo:
+private ImageView imageView;
+
+- Start camera request:
+Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+startActivityForResult(cameraIntent, CAMERA_REQUEST);
+
+- Capture the result in onActivityResult:
+protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+	if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {
+		Bitmap photo = (Bitmap) data.getExtras().get("data");
+		imageView.setImageBitmap(photo);
+	}
+}
+
+- Note that we must check the request code that match the request code when we call startActivity and result code OK.
+
