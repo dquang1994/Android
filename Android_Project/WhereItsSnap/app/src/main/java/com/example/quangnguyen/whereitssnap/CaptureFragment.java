@@ -1,8 +1,13 @@
 package com.example.quangnguyen.whereitssnap;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -22,7 +27,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class CaptureFragment extends Fragment {
+public class CaptureFragment extends Fragment implements LocationListener {
     private static final int CAMERA_REQUEST = 123;
     private ImageView mImageView;
 
@@ -35,11 +40,22 @@ public class CaptureFragment extends Fragment {
     // A reference to our database
     private DataManager mDataManager;
 
+    // For the Location
+    private Location mLocation = new Location("");
+    private LocationManager mLocationManager;
+    private String mProvider;
+
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
 
         mDataManager = new DataManager(getActivity().getApplicationContext());
+
+        // Initialize mLocationManager
+        mLocationManager = (LocationManager)
+                getActivity().getSystemService(Context.LOCATION_SERVICE);
+        Criteria criteria = new Criteria();
+        mProvider = mLocationManager.getBestProvider(criteria, false);
     }
 
     @Override
@@ -90,6 +106,9 @@ public class CaptureFragment extends Fragment {
                         Photo photo = new Photo();
                         photo.setTitle(mEditTextTitle.getText().toString());
                         photo.setStorageLocation(mImageUri);
+
+                        // Set the current GPS location
+                        photo.setGpsLocation(mLocation);
 
                         // What is in
                         String tag1 = mEditTextTag1.getText().toString();
@@ -158,5 +177,39 @@ public class CaptureFragment extends Fragment {
         BitmapDrawable bd = (BitmapDrawable) mImageView.getDrawable();
         bd.getBitmap().recycle();
         mImageView.setImageBitmap(null);
+    }
+
+    // Start updates when app starts/resumes
+    @Override
+    public void onResume() {
+        super.onResume();
+        mLocationManager.requestLocationUpdates
+                (mProvider, 500, 1, this);
+    }
+
+    // pause the location manager when app is paused/stopped
+    @Override
+    public void onPause() {
+        super.onPause();
+        mLocationManager.removeUpdates(this);
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        // Update the location if it changed
+        mLocation = location;
+    }
+
+    @Override
+    public void onStatusChanged(String provider,
+                                int status, Bundle extras) {
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
     }
 }
