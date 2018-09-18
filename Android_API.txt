@@ -963,3 +963,143 @@ int position = (int)getArguments().getInt("Position");
 	
 	** getString(1) -> colum 1, getString(0) -> colum 0 ...
 	
+**** Get location ****
+- Create and initialize classes:
+LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+Criteria criteria = new Criteria();
+String provider = locationManager.getBestProvider(criteria, false);
+Location location = locationManager.getLastKnownLocation(provider);
+
+- Create a class that implements LocationListener and override 4 method:
+public class MainActivity extends AppCompatActivity implements LocationListener
+
+	@Override
+    public void onLocationChanged(Location location) {
+		// This method is called when each time the location changes
+        double lat = location.getLatitude();
+        double lng = location.getLongitude();
+        txtLat.setText(String.valueOf(lat));
+        txtLong.setText(String.valueOf(lng));
+        txtSource.setText("Source = " + provider);
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+        txtSource.setText("Source = " + provider);
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+        txtSource.setText("Source = " + provider);
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+        txtSource.setText("Source = " + provider);
+    }
+
+- Start updates when app starts/resumes:
+	@Override
+    protected void onResume() {
+        super.onResume();
+        locationManager.requestLocationUpdates
+                (provider, 500, 1, this);
+    }
+
+- Pause the location manager when app is paused/stopped:
+	@Override
+    protected void onPause() {
+        super.onPause();
+        locationManager.removeUpdates(this);
+    }
+	
+**** Multi language ****
+- Create multiple value-xx folder in res folder, xx is a acronym of nation, ex:
+	+ value-fr from french
+	+ value-es for spain
+	+ value is the default language, default language will be displayed when there is no value-xx corresponding with setting value.
+	
+- The displayed language based on language setting
+
+**** Draw on the canvas ****
+* Using Bitmap:
+	- Create the canvas:
+	    // Create a bitmap object to use as our canvas
+	    Bitmap ourBitmap = Bitmap.createBitmap(750,1500, Bitmap.Config.ARGB_8888);
+		Canvas ourCanvas = new Canvas(ourBitmap);
+	    
+	- Create a paint for drawing:
+		// A paint object that does our drawing, on our canvas
+	    Paint paint = new Paint();
+
+	- Set background color using:
+		ourCanvas.drawColor(Color.BLACK);
+
+	- Change the color of paint:
+		paint.setColor(Color.argb(255, 255, 255, 255));
+
+	- Draw a point on canvas using:
+		ourCanvas.drawPoint(x, y, paint);
+
+	- Draw a line:
+		ourCanvas.drawLine(0, 0, 750, 1500, paint);
+
+	- Set text size and draw a text:
+		paint.setTextSize(120f);
+		ourCanvas.drawText("Hello Canvas!", 10, 750, paint);
+
+	- Draw a circle:
+		ourCanvas.drawCircle(500, 500, 100, paint);
+
+	- Draw a rectangle:
+		ourCanvas.drawRect(200, 10, 600, 200, paint);
+
+	- Finally set bitmap to Image View:
+		ImageView ourFrame = (ImageView) findViewById(R.id.imageView);
+		ourFrame.setImageBitmap(ourBitmap);
+* Using Surface View:
+	- Create Surface View:
+	SurfaceView sv = new SurfaceView(getApplicationContext());
+
+	- Get Holder:
+	SurfaceHolder mOurHolder = sv.getHolder();
+
+	- Lock canvas:
+	Canvas mCanvas = mOurHolder.lockCanvas();
+
+	- Draw something on canvas as above
+
+	- Unlock canvas and post to draw everything to canvas:
+	mOurHolder.unlockCanvasAndPost(mCanvas);
+
+	- Set containView with Surface View:
+	setContentView(sv);
+
+
+**** Last Chapter about Pong game ****
+- Get resolution of screen:
+	Display display = getWindowManager().getDefaultDisplay();
+	Point size = new Point();
+    display.getSize(size);
+    size.x
+    size.y
+
+- Using Thread:
+	+ Create a class that implements Runnable:
+ 	class GameView implements Runnable
+
+	+ Override run method in this class:
+ 	@Override
+	public void run() {
+		//Handle something when thread is running
+	}
+
+	+ Create a new Thread with argument is class that implements Runnable:
+	Thread mGameThread = new Thread(this);
+
+	+ Start Thread:
+	mGameThread.start();
+
+	+ Stop Thread:
+	mGameThread.join();
+
