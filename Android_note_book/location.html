@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Location</title>
+	<link rel="stylesheet" type="text/css" href="rainbow/themes/css/obsidian.css">
+</head>
+<body>
+	<h1>- Add permission</h1>
+	<pre><code data-language="xml">
+&lt;uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /&gt;
+&lt;uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /&gt;
+&lt;uses-permission android:name="android.permission.INTERNET" /&gt;
+	</code></pre>	
+	<h1>- Create and initialize classes:</h1>
+	<pre><code data-language="java">
+LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+Criteria criteria = new Criteria();
+String provider = locationManager.getBestProvider(criteria, false);
+Location location = locationManager.getLastKnownLocation(provider);
+	</code></pre>
+	<h1>- Create a class that implements LocationListener and override 4 method:</h1>
+	<pre><code data-language="java">
+public class MainActivity extends AppCompatActivity implements LocationListener
+
+@Override
+public void onLocationChanged(Location location) {
+	// This method is called when each time the location changes
+    double lat = location.getLatitude();
+    double lng = location.getLongitude();
+    txtLat.setText(String.valueOf(lat));
+    txtLong.setText(String.valueOf(lng));
+    txtSource.setText("Source = " + provider);
+}
+
+@Override
+public void onStatusChanged(String provider, int status, Bundle extras) {
+    txtSource.setText("Source = " + provider);
+}
+
+@Override
+public void onProviderEnabled(String provider) {
+    txtSource.setText("Source = " + provider);
+}
+
+@Override
+public void onProviderDisabled(String provider) {
+    txtSource.setText("Source = " + provider);
+}
+	</code></pre>
+	<h1>- Start updates when app starts/resumes:</h1>
+	<pre><code data-language="java">
+@Override
+protected void onResume() {
+    super.onResume();
+    locationManager.requestLocationUpdates
+            (provider, 500, 1, this);
+}
+	</code></pre>
+	<h1>- Pause the location manager when app is paused/stopped:</h1>
+	<pre><code data-language="java">
+@Override
+protected void onPause() {
+    super.onPause();
+    locationManager.removeUpdates(this);
+}
+	</code></pre>
+
+	<script src="js/rainbow-custom.min.js"></script>
+	<script src="rainbow/src/language/java.js"></script>
+	<script src="rainbow/src/language/xml.js"></script>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Sound</title>
+	<link rel="stylesheet" type="text/css" href="rainbow/themes/css/obsidian.css">
+</head>
+<body>
+	<h1>Create some variable for sound identifier and sound pool class:</h1>
+	<pre><code data-language="java">
+import android.media.SoundPool;
+
+int idFX1 = -1;
+int idFX2 = -1;
+int idFX3 = -1;
+int nowPlaying = -1;
+
+SoundPool sp;
+	</code></pre>
+	<h1>Initialize sound pool:</h1>
+	<pre><code data-language="java">
+import android.media.AudioAttributes;
+import android.media.AudioManager;
+import android.os.Build;
+
+if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+	AudioAttributes audioAttributes = new AudioAttributes.Builder()
+			.setUsage(AudioAttributes. USAGE_ASSISTANCE_SONIFICATION)
+			.setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+			.build();
+	sp = new SoundPool.Builder()
+			.setMaxStreams(5)
+			.setAudioAttributes(audioAttributes)
+			.build();
+} else {
+	sp = new SoundPool(5, AudioManager.STREAM_MUSIC, 0);
+}
+	</code></pre>
+	<h1>Prepare sound files: create a folder name assets in ${project_root}/app/src/main and place sound files here</h1>
+	<h1>Load sound files into memory:</h1>
+	<pre><code data-language="java">
+import android.content.res.AssetFileDescriptor;
+import android.content.res.AssetManager;
+
+try{
+	// Create objects of the 2 required classes
+	AssetManager assetManager = this.getAssets();
+	AssetFileDescriptor descriptor;
+	
+	// Load our fx in memory ready for use
+	descriptor = assetManager.openFd("fx1.ogg");
+	idFX1 = sp.load(descriptor, 0);
+	descriptor = assetManager.openFd("fx2.ogg");
+	idFX2 = sp.load(descriptor, 0);
+	descriptor = assetManager.openFd("fx3.ogg");
+	idFX3 = sp.load(descriptor, 0);
+}catch(IOException e){
+	// Print an error message to the console
+	Log.e("error", "failed to load sound files");
+}
+	</code></pre>
+	<h1>Playing a sound:</h1>
+	<pre><code data-language="java">
+nowPlaying = sp.play(idFX1, volume, volume, 0, repeats, 1);
+	</code></pre>
+	<pre style="white-space: pre-wrap;><code data-language="java">
+The parameters of the play method are: the ID of the sound effect, the left-hand side speaker volume, the right-hand side speaker volume, the priority over other sounds, the number of times to repeat the sound, and the rate/speed at which it is played (1 is the normal rate).
+	</code></pre>
+	<h1>Set a volume:</h1>
+	<pre><code data-language="java">
+sp.setVolume(nowPlaying, volume, volume);
+	</code></pre>
+	<h1>Stop a sound:</h1>
+	<pre><code data-language="java">
+sp.stop(nowPlaying);
+	</code></pre>
+	<a href="https://github.com/dquang1994/Android/tree/master/Example/SoundDemo">Example</a>
+
+	<script src="js/rainbow-custom.min.js"></script>
+	<script src="rainbow/src/language/java.js"></script>
+</body>
+</html>

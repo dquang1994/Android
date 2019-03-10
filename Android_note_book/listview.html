@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>List View</title>
+	<link rel="stylesheet" type="text/css" href="rainbow/themes/css/obsidian.css">
+</head>
+<body>
+	<h1>Step 1: Drag listView into layout</h1>
+	<h1>Step 2: Create layout for each item in list view: listitem.xml</h1>
+	<h1>Step 3: Create a class that extends BaseAdapter (can create inner class in MainActivity) and works to do in this class:</h1>
+	<pre><code data-language="java">
+import android.widget.BaseAdapter;
+
+public class NoteAdapter extends BaseAdapter
+	</code></pre>
+	<h2>Step 1: Create an array contain our object:</h2>
+	<pre><code data-language="java">
+import java.util.ArrayList;
+import java.util.List;
+
+List&lt;Note&gt; noteList = new ArrayList&lt;Note&gt;();
+	</code></pre>
+	<h2>Step 2: Override 4 methods: 3 first methods for internal use by BaseAdapter (we just follow this)</h2>
+	<pre><code data-language="java">
+import android.view.View;
+import android.view.ViewGroup;
+
+@Override
+public int getCount() {
+	return noteList.size();
+}
+
+@Override
+public Note getItem(int whichItem) {
+	return noteList.get(whichItem);
+}
+
+@Override
+public long getItemId(int whichItem) {
+	return whichItem;
+}
+
+@Override
+public View getView(int whichItem, View view, ViewGroup viewGroup)
+{
+	// Implement this method next
+	return view;
+}
+	</code></pre>
+	<h2>Step 3: Work to do in getView:</h2>
+	<h3>Step 1: Inflate the layout for each element of list view, because getView will be called when new item is added to array list of base adapter and it will be called many times. For example:</h3>
+	<pre><code>
++ item 1 added: getView(whichItem = 0, view of element 0 (first time will null), viewGroup of element 0)
++ item 2 added: getView(whichItem = 0, view of element 0 (this time will not null), viewGroup of element 0)
+                getView(whichItem = 1, view of element 1 (this time will null), viewGroup of element 1)
++ item 3 added: getView(whichItem = 0, view of element 0, viewGroup of element 0)
+                getView(whichItem = 1, view of element 1, viewGroup of element 1)
+                getView(whichItem = 2, view of element 2 (this time will null), viewGroup of element 2)
+	</code></pre>
+	<h3>so we should check if view == null to inflate layout only for elements that view == null (not inflate layout yet)</h3>
+	<pre><code data-language="java">
+import android.view.LayoutInflater;
+import android.content.Context;
+
+if(view == null){
+	// If not, do so here
+	// First create a LayoutInflater
+	LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+	// Now instantiate view using inflater.inflate
+	// using the listitem layout
+	view = inflater.inflate(R.layout.listitem, viewGroup,false);
+	// The false parameter is neccessary
+	// because of the way that we want to use listitem
+}// End if
+	</code></pre>
+	<h3>Step 2: Get reference to widgets:</h3>
+	<pre><code data-language="java">
+import android.widget.TextView;
+
+TextView txtTitle = (TextView) view.findViewById(R.id.txtTitle);
+TextView txtDescription = (TextView) view.findViewById(R.id.txtDescription);
+	</code></pre>
+	<h3>Step 3: Do other works</h3>
+	<h3>Step 4: Return view</h3>
+	<pre><code data-language="java">
+return view;
+	</code></pre>
+	<h2>Step 4: Should create method for add and delete item to arraylist of this adapter:</h2>
+	<pre><code data-language="java">
+public void addNote(Note n){
+	noteList.add(n);
+	notifyDataSetChanged(); //when this method is called, getView will be recalled to refresh the UI for list view
+}
+
+public void deleteNote(int n){
+    noteList.remove(n);
+    notifyDataSetChanged();
+}
+	</code></pre>
+	<h1>Step 4: Create instance of adapter: (in onCreate)</h1>
+	<pre><code data-language="java">
+mNoteAdapter = new NoteAdapter();
+	</code></pre>
+	<h1>Step 5: Get reference to list view:</h1>
+	<pre><code data-language="java">
+import android.widget.ListView;
+
+ListView listNote = (ListView) findViewById(R.id.listView);
+	</code></pre>
+	<h1>Step 6: Set adapter for list view:</h1>
+	<pre><code data-language="java">
+listNote.setAdapter(mNoteAdapter);
+	</code></pre>
+	<h1>Step 7: Also handle clicks on the ListView:</h1>
+	<pre><code data-language="java">
+import android.widget.AdapterView;
+
+listNote.setOnItemClickListener(new AdapterView.OnItemClickListener()
+{
+	@Override
+	public void onItemClick(AdapterView&lt;?&gt; adapter, View view, int whichItem, long id) {
+		//view is view of item clicked
+		// whichItem is index of item clicked, corresponding with index of item in array of adapter
+	
+	}
+});
+	</code></pre>
+	<h1>Step 8: Set long click</h1>
+	<pre><code data-language="java">
+listNote.setLongClickable(true);
+
+// Now to detect long clicks and delete the note
+listNote.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() { 
+	public boolean onItemLongClick(AdapterView&lt;?&gt; adapter, View view, int whichItem, long id) {
+		//Do something when user press and hold
+		return true;
+	}
+});
+	</code></pre>
+	<a href="https://github.com/dquang1994/Android/tree/master/Example/ListView">Example</a>
+
+	<script src="js/rainbow-custom.min.js"></script>
+	<script src="rainbow/src/language/java.js"></script>
+</body>
+</html>

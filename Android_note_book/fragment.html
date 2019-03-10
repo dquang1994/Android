@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Fragment</title>
+	<link rel="stylesheet" type="text/css" href="rainbow/themes/css/obsidian.css">
+</head>
+<body>
+	<h1>Fragment has lifecycle like activity</h1>
+	<pre><code>
+onCreate
+In the onCreate method, we can initialize variables and do almost all the things we would typically do in the Activity onCreate method. The big exception to this is initializing our UI
+
+onCreateView
+In this method, we will, as the name suggests, get a reference to any of our UI widgets, set up anonymous classes to listen for clicks, and do more besides these tasks
+
+onAttach and onDetach
+These methods are called just before the Fragment is actually put into use/taken out of use.
+
+onStart, onPause, and onStop
+In these methods, we can take certain actions such as creating or deleting objects or saving data, just like we did with their counterparts that were based on Activity.
+	</code></pre>
+	<h1>Simple fragment</h1>
+	<h2>Specify which layout will hold fragment and set an id for it:</h2>
+	<p>Ex: Contraints layout in activity_main.xml: id = fragmentHolder</p>
+	<h2>Create layout for fragment:</h2>
+	<p>Ex: fragment_layout.xml</p>
+	<h2>Create a class extends Fragment:</h2>
+	<h3>Initial variable or something in onCreate</h3>
+	<h3>Inflate fragment_layout, get reference, set onClickListener in onCreateView</h3>
+	<pre><code data-language="java">
+public class SimpleFragment extends Fragment {
+	// member variables accessible from anywhere in this fragment
+	String myString;
+	Button myButton;
+
+	@Override
+	public void onCreate(Bundle savedInstanceState){
+		super.onCreate(savedInstanceState);
+		myString = "Hello from SimpleFragment";
+	}
+
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		View view = inflater.inflate(R.layout.fragment_layout, container, false);
+		myButton = (Button) view.findViewById(R.id.button);
+
+		myButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Toast.makeText(getActivity(),myString ,
+						Toast.LENGTH_SHORT).show();
+			}
+		});
+
+		return view;
+	}
+}
+	</code></pre>
+	<h2>Add fragment into holder in main_activity: (in onCreate)</h2>
+	<pre><code data-language="java">
+// Get a fragment manager
+FragmentManager fManager = getFragmentManager();
+
+// Create a new fragment using the manager
+// Passing in the id of the layout to hold it
+Fragment frag = fManager.findFragmentById(R.id.fragmentHolder); //find fragment that associated with holder, null if not
+// Check the fragment has not already been initialized
+if(frag == null){
+	// Initialize the fragment based on our SimpleFragment
+	frag = new SimpleFragment();
+	fManager.beginTransaction()
+			.add(R.id.fragmentHolder, frag)
+			.commit();
+}
+	</code></pre>
+	<a href="https://github.com/dquang1994/Android/tree/master/Example/Fragment">Example</a>
+
+	<script src="js/rainbow-custom.min.js"></script>
+	<script src="rainbow/src/language/java.js"></script>
+</body>
+</html>

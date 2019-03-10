@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>View Paper</title>
+	<link rel="stylesheet" type="text/css" href="rainbow/themes/css/obsidian.css">
+</head>
+<body>
+	<h1>- Drag ViewPager into layout</h1>
+	<h1>- Create a layout file for each page pager_item.xml (ex: layout with an imageView to have an Image Slider)</h1>
+	<h1>- Create a class that extends PagerAdapter:</h1>
+	<pre><code data-language="java">
+public class ImagePagerAdapter extends PagerAdapter {
+
+}
+	</code></pre>
+	<h1>- Work to do on this class:</h1>
+	<h2>+ Declare context variable:</h2>
+	<pre><code data-language="java">
+import android.content.Context;
+
+Context context;
+	</code></pre>
+	<h2>+ Declare int array which will hold id of the images</h2>
+	<pre><code data-language="java">
+int[] images;
+	</code></pre>
+	<h2>+ Declare a layout inflater to inflate pager_item.xml to each view of page.</h2>
+	<pre><code data-language="java">
+import android.view.LayoutInflater;
+
+LayoutInflater inflater;
+	</code></pre>
+	<h2>+ Create a constructor like below which we will pass Context from MainActivity and an int array</h2>
+	<pre><code data-language="java">
+public ImagePagerAdapter(Context context, int[] images){
+    this.context = context;
+    this.images = images;
+}
+	</code></pre>
+	<h2>+ Next we must override 2 method of PagerAdapter like below: (these method is used internally by the class and we just follow)</h2>
+	<pre><code data-language="java">
+import android.view.View;
+
+@Override
+public int getCount() {
+    return images.length;
+}
+
+@Override
+public boolean isViewFromObject(View view, Object object) {
+    return view == object;
+}
+	</code></pre>
+	<h2>+ Finally, we override instantiateItem and destroyItem method:</h2>
+	<pre><code data-language="java">
+mport android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.support.v4.view.PagerAdapter;
+
+@Override
+public Object instantiateItem(ViewGroup container, int position) {
+ 	ImageView image;
+    inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    View itemView = inflater.inflate(R.layout.pager_item, container,false);
+
+    // get reference to imageView in pager_item layout
+    image = (ImageView) itemView.findViewById(R.id.imageView);
+
+    // Set an image to the ImageView
+    image.setImageResource(images[position]);
+
+    // Add pager_item layout as the current page to the ViewPager
+    ((ViewPager) container).addView(itemView);
+
+    return itemView;
+}
+
+@Override
+public void destroyItem(ViewGroup container, int position, Object object) {
+    // Remove pager_item layout from ViewPager
+    ((ViewPager) container).removeView((RelativeLayout) object);
+}
+	</code></pre>
+	<h1>- In onCreate of MainActivity:</h1>
+	<pre><code data-language="java">
+int[] images;
+
+// reference the images and put them in our array
+images = new int[] { R.drawable.a,
+        R.drawable.b,
+        R.drawable.c,
+        R.drawable.d,
+        R.drawable.e,
+        R.drawable.f };
+
+// get a reference to the ViewPager in the layout
+viewPager = (ViewPager) findViewById(R.id.pager);
+
+// Initialize our PagerAdapter
+adapter = new ImagePagerAdapter(MainActivity.this, images);
+
+// Bind the PagerAdapter to the ViewPager
+viewPager.setAdapter(adapter);
+	</code></pre>
+	<h1><a href="https://github.com/dquang1994/Android/tree/master/Example/ViewPager">Example</a></h1>
+
+	<script src="js/rainbow-custom.min.js"></script>
+	<script src="rainbow/src/language/java.js"></script>
+</body>
+</html>

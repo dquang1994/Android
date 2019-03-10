@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>View Pager and Fragment Pager Adapter</title>
+	<link rel="stylesheet" type="text/css" href="rainbow/themes/css/obsidian.css">
+</head>
+<body>
+	<h1>- Drag ViewPager into layout</h1>
+	<h1>- Create some fragments with layout</h1>
+	<h1>- Create a class that extends FragmentPagerAdapter like below: (in main activity)</h1>
+	<pre><code data-language="java">
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+
+private class SimpleFragmentPagerAdapter extends FragmentPagerAdapter {
+    // A List to hold our fragments
+    private List&lt;Fragment&gt; fragments;
+
+    // A constructor to receive a fragment manager and a List
+    public SimpleFragmentPagerAdapter(FragmentManager fm, List&lt;Fragment&gt; fragments) {
+        // Call the super class' version
+        // of this constructor
+        super(fm);
+        this.fragments = fragments;
+    }
+
+    // Just two methods to override
+    // to get the current position of
+    // the adapter and the size of the List
+    @Override
+    public Fragment getItem(int position) {
+        return this.fragments.get(position);
+    }
+
+    @Override
+    public int getCount() {
+        return this.fragments.size();
+    }
+}
+	</code></pre>
+	<h1>- In MainActivity:</h1>
+	<h2>+ Declare a list of fragment:</h2>
+	<pre><code data-language="java">
+import java.util.ArrayList;
+
+List&lt;Fragment&gt; fragmentList = new ArrayList&lt;Fragment&gt;();
+	</code></pre>
+	<h2>+ Add fragment we need to slide into this list</h2>
+	<pre><code data-language="java">
+fragmentList.add(SimpleFragment.newInstance("1"));
+fragmentList.add(SimpleFragment.newInstance("2"));
+fragmentList.add(SimpleFragment.newInstance("3"));
+	</code></pre>
+	<h2>+ Create instance of SimpleFragmentPagerAdapter</h2>
+	<pre><code data-language="java">
+pageAdapter = new SimpleFragmentPagerAdapter(getSupportFragmentManager(), fragmentList);
+	</code></pre>
+	<h2>+ Set adapter for ViewPager:</h2>
+	<pre><code data-language="java">
+ViewPager pager = (ViewPager)findViewById(R.id.pager);
+pager.setAdapter(pageAdapter);
+	</code></pre>
+	<h1><a href="https://github.com/dquang1994/Android/tree/master/Example/ViewPager2">Example</a></h1>
+
+	<script src="js/rainbow-custom.min.js"></script>
+	<script src="rainbow/src/language/java.js"></script>
+</body>
+</html>

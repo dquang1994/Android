@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Thread</title>
+	<link rel="stylesheet" type="text/css" href="rainbow/themes/css/obsidian.css">
+</head>
+<body>
+	<h1>Using Thread class:</h1>
+	<h2>+ Create a class that implements Runnable:</h2>
+	<pre><code data-language="java">
+class GameView implements Runnable
+	</code></pre>
+	<h2>+ Override run method in this class:</h2>
+	<pre><code data-language="java">
+@Override
+public void run() {
+	//Handle something when thread is running
+}
+	</code></pre>
+	<h2>+ Create a new Thread with argument is class that implements Runnable:</h2>
+	<pre><code data-language="java">
+Thread mGameThread = new Thread(this);
+	</code></pre>
+	<h2>+ Start Thread:</h2>
+	<pre><code data-language="java">
+mGameThread.start();
+	</code></pre>
+	<h2>+ Stop Thread:</h2>
+	<pre><code data-language="java">
+mGameThread.join();
+	</code></pre>
+	<h1>Using Handler class:</h1>
+	<pre><code data-language="java">
+myHandler = new Handler() {
+    public void handleMessage(Message msg) {
+        super.handleMessage(msg);
+        if (gameOn) {
+            long seconds = ((System.currentTimeMillis() -
+                    startTime)) / 1000;
+            Log.i("info", "seconds = " + seconds);
+        }
+        myHandler.sendEmptyMessageDelayed(0, 1000);
+    }
+};
+gameOn = true;
+myHandler.sendEmptyMessage(0);
+	</code></pre>
+
+	<script src="js/rainbow-custom.min.js"></script>
+	<script src="rainbow/src/language/java.js"></script>
+</body>
+</html>

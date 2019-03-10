@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Radio button and group</title>
+	<link rel="stylesheet" type="text/css" href="rainbow/themes/css/obsidian.css">
+</head>
+<body>
+	<p>Step 1: Drag radio group into layout</p>
+	<p>Step 2: Drag radio button into radio group</p>
+	<p>Step 3: Get reference to radio group and radio button: (inside onCreate)</p>
+	<pre><code data-language="java">
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+
+RadioGroup radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
+RadioButton rbBeijing = (RadioButton) findViewById(R.id.radioButtonBeijing);
+RadioButton rbLondon = (RadioButton) findViewById(R.id.radioButtonLondon);
+RadioButton rbnewYork = (RadioButton) findViewById(R.id.radioButtonNewYork);
+	</code></pre>
+	<p>Step 4: Clear check on the radio group: (inside onCreate)</p>
+	<pre><code data-language="java">
+radioGroup.clearCheck();
+	</code></pre>
+	<p>Step 5: setOnCheckedChangeListener on radio group: (inside onCreate)</p>
+	<pre><code data-language="java">
+radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+	public void onCheckedChanged(RadioGroup group, int checkedId) {
+		switch (checkedId) {
+			case R.id.radioButtonLondon:
+				//Do something when radio button London is clicked
+				break;
+			case R.id.radioButtonBeijing:
+				//Do something when radio button Beijing is clicked
+				break;
+			case R.id.radioButtonNewYork:
+				//Do something when radio button New York is clicked
+				break;
+		}
+	}
+});
+	</code></pre>
+	<p><a href="https://github.com/dquang1994/Android/tree/master/Example/CommonUsedWidgets">Example</a></p>
+
+	<script src="js/rainbow-custom.min.js"></script>
+	<script src="rainbow/src/language/java.js"></script>
+</body>
+</html>

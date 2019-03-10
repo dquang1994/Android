@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Set argument for fragment</title>
+	<link rel="stylesheet" type="text/css" href="rainbow/themes/css/obsidian.css">
+</head>
+<body>
+	<pre><code data-language="java">
+Bundle args = new Bundle();
+args.putInt("Position", position);
+AddressDetailFragment frag = new AddressDetailFragment();
+frag.setArguments(args);
+	</code></pre>
+	<h1>- These arguments can retrieve when fragment is created an show on the holder. So we need add code in onCreate of AddressDetailFragment class to retrieve these arguments like below:</h1>
+	<pre><code data-language="java">
+int position = (int)getArguments().getInt("Position");
+	</code></pre>	
+
+	<script src="js/rainbow-custom.min.js"></script>
+	<script src="rainbow/src/language/java.js"></script>
+</body>
+</html>

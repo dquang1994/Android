@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Seek Bar</title>
+	<link rel="stylesheet" type="text/css" href="rainbow/themes/css/obsidian.css">
+</head>
+<body>
+	<h1>Drag seek bar into layout</h1>
+	<h1>Set max value for seek bar with max property:</h1>
+	<pre><code data-language="xml">
+android:max="100"
+	</code></pre>
+	<h1>Get reference to seek bar:</h1>
+	<pre><code data-language="java">
+import android.widget.SeekBar;
+
+seekBarSpeed = (SeekBar) findViewById(R.id.seekBarSpeed);
+	</code></pre>
+	<h1>Set onChangeListener:</h1>
+	<pre><code data-language="java">
+seekBarSpeed.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+	@Override
+	public void onProgressChanged(SeekBar seekBar, int value, boolean fromUser) {
+		//Do something when a change in the position of the seek bar was detected
+		//The seek bar has a max value, value variable will change from 0 to max
+	}
+	
+	@Override
+	public void onStartTrackingTouch(SeekBar seekBar) {
+		//Do something when the user has started to change the position
+	}
+	
+	@Override
+	public void onStopTrackingTouch(SeekBar seekBar) {
+		//Do something when the user has finished using the seek bar
+	}
+});
+	</code></pre>
+	<h1>Also can set progress of seek bar:</h1>
+	<pre><code data-language="java">
+seekBarSpeed.setProgress(progress);
+	</code></pre>
+	<a href="https://github.com/dquang1994/Android/tree/master/Example/SeekBar">Example</a>
+
+	<script src="js/rainbow-custom.min.js"></script>
+	<script src="rainbow/src/language/java.js"></script>
+	<script src="rainbow/src/language/html.js"></script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Web View</title>
+	<link rel="stylesheet" type="text/css" href="rainbow/themes/css/obsidian.css">
+</head>
+<body>
+	<p>Step 1: Drag web view into layout</p>
+	<p>Step 2: Get reference to web view: (inside OnCreate and must has final)</p>
+	<pre><code data-language="java">
+import android.webkit.WebView;
+
+final WebView webView = (WebView) findViewById(R.id.WebView);
+	</code></pre>
+	<p>Step 3: Add permission into Manifest</p>
+	<pre><code data-language="html">
+&lt;uses-permission android:name="android.permission.INTERNET" /&gt;
+	</code></pre>
+	<p>Step 4: Browse to url:</p>
+	<pre><code data-language="java">
+webView.loadUrl("http://www.cs.yale.edu/homes/tap/Files/hopper-story.html");
+	</code></pre>
+	<p><a href="https://github.com/dquang1994/Android/tree/master/Example/CommonUsedWidgets">Example</a></p>
+
+	<script src="js/rainbow-custom.min.js"></script>
+	<script src="rainbow/src/language/java.js"></script>
+	<script src="rainbow/src/language/html.js"></script>
+</body>
+</html>

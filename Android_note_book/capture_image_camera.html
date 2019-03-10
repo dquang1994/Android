@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Capture Image from Camera</title>
+	<link rel="stylesheet" type="text/css" href="rainbow/themes/css/obsidian.css">
+</head>
+<body>
+	<h1>* Method 1: Get data directly from intent</h1>
+	<h2>- Add permission in AndroidManifest:</h2>
+	<pre><code data-language="xml">
+&lt;uses-permission android:name="android.permission.CAMERA" /&gt;
+&lt;uses-feature android:name="android.hardware.camera" /&gt;
+	</code></pre>
+	<h2>- Declare a variable that hold a id for the camera request:</h2>
+	<pre><code data-language="java">
+private static final int CAMERA_REQUEST = 123;
+	</code></pre>
+	<h2>- Declare an image view to display the taken photo:</h2>
+	<pre><code data-language="java">
+import android.widget.ImageView;
+
+private ImageView imageView;
+	</code></pre>
+	<h2>- Start camera request:</h2>
+	<pre><code data-language="java">
+import android.content.Intent;
+
+Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+startActivityForResult(cameraIntent, CAMERA_REQUEST);
+	</code></pre>
+	<h2>- Capture the result in onActivityResult:</h2>
+	<pre><code data-language="java">
+import android.graphics.Bitmap;
+		
+protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+	if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {
+		Bitmap photo = (Bitmap) data.getExtras().get("data");
+		imageView.setImageBitmap(photo);
+	}
+}
+	</code></pre>
+	<h2>- Note that we must check the request code that match the request code when we call startActivity and result code OK.</h2>
+	<h1>* Method 2: create a temp file and let the intent add data of taken image into this temp file</h1>
+	<h2>- Add permission:</h2>
+	<pre><code data-language="xml">
+<uses-permission android:name="android.permission.CAMERA" />
+<uses-feature android:name="android.hardware.camera" />
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+	</code></pre>
+	<h2>- Declare a variable that hold a id for the camera request:</h2>
+	<pre><code data-language="java">
+private static final int CAMERA_REQUEST = 123;
+	</code></pre>
+	<h2>- Declare an image view to display the taken photo:</h2>
+	<pre><code data-language="java">
+private ImageView imageView;
+	</code></pre>
+	<h2>- Declare an URI that is the link to where taken image is stored:</h2>
+	<pre><code data-language="java">
+private Uri mImageUri = Uri.EMPTY;
+	</code></pre>
+	<h2>- Create a temp file that will contain the image:</h2>
+	<pre><code data-language="java">
+String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+String imageFileName = "JPEG_" + timeStamp + "_";
+File storageDir = Environment.getExternalStoragePublicDirectory(
+		Environment.DIRECTORY_PICTURES);
+File photoFile = File.createTempFile(
+		imageFileName, // filename
+		".jpg", // extension
+		storageDir // folder
+);
+	</code></pre>
+	<h2>- Start intent and store a link to temp file above to mImageUri:</h2>
+	<pre><code data-language="java">
+Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+mImageUri = Uri.fromFile(photoFile);
+//Camera app will put data into this URI by second argument
+cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photoFile));
+startActivityForResult(cameraIntent, CAMERA_REQUEST);
+	</code></pre>
+	<h2>- Get result:</h2>
+	<pre><code data-language="java">
+@Override
+public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {
+        try {
+            mImageView.setImageURI(mImageUri);
+        }catch(Exception e){
+            Log.e("Error","Uri not set");
+        }
+    }else{
+        mImageUri = Uri.EMPTY;
+    }
+}
+	</code></pre>
+
+	<script src="js/rainbow-custom.min.js"></script>
+	<script src="rainbow/src/language/java.js"></script>
+	<script src="rainbow/src/language/xml.js"></script>
+</body>
+</html>

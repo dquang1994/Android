@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>How to show the log</title>
+	<link rel="stylesheet" type="text/css" href="rainbow/themes/css/obsidian.css">
+</head>
+<body>
+	<h2>Show the log on screen using:</h2>
+	<pre><code data-language="java">
+import android.widget.Toast
+
+Toast.makeText(activity, "text to show", duration).show();
+	</code></pre>
+	<h4>Argument:</h4>
+	<ul>
+		<li>activity: the class that extern Activity</li>
+		<li>"text to show": the text you want to show on the screen</li>
+		<li>duration: Toast.LENGTH_SHORT or Toast.LENGTH_LONG</li>
+	</ul>
+	<h2>Show the log on logcat using:</h2>
+	<pre><code data-language="java">
+import android.util.Log;
+
+Log.i("info", "some info");
+	</code></pre>
+	<h4>The output has format: <code>info: some info</code></h4>
+	<a href="https://github.com/dquang1994/Android/tree/master/Example/LogandButton">Example</a>
+
+	<script src="js/rainbow-custom.min.js"></script>
+	<script src="rainbow/src/language/java.js"></script>
+</body>
+</html>

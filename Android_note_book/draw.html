@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Draw</title>
+	<link rel="stylesheet" type="text/css" href="rainbow/themes/css/obsidian.css">
+</head>
+<body>
+	<h1>* Using Bitmap:</h1>
+	<h2>- Create the canvas:</h2>
+	<pre><code data-language="java">
+// Create a bitmap object to use as our canvas
+Bitmap ourBitmap = Bitmap.createBitmap(750,1500, Bitmap.Config.ARGB_8888);
+Canvas ourCanvas = new Canvas(ourBitmap);
+	</code></pre>
+	- Create a paint for drawing:
+	<pre><code data-language="java">
+// A paint object that does our drawing, on our canvas
+Paint paint = new Paint();
+	</code></pre>
+	<h2>- Set background color using:</h2>
+	<pre><code data-language="java">
+ourCanvas.drawColor(Color.BLACK);
+	</code></pre>
+	<h2>- Change the color of paint:</h2>
+	<pre><code data-language="java">
+paint.setColor(Color.argb(255, 255, 255, 255));
+	</code></pre>
+	<h2>- Draw a point on canvas using:</h2>
+	<pre><code data-language="java">
+ourCanvas.drawPoint(x, y, paint);
+	</code></pre>
+	<h2>- Draw a line:</h2>
+	<pre><code data-language="java">
+ourCanvas.drawLine(0, 0, 750, 1500, paint);
+	</code></pre>
+	<h2>- Set text size and draw a text:</h2>
+	<pre><code data-language="java">
+paint.setTextSize(120f);
+ourCanvas.drawText("Hello Canvas!", 10, 750, paint);
+	</code></pre>
+	<h2>- Draw a circle:</h2>
+	<pre><code data-language="java">
+ourCanvas.drawCircle(500, 500, 100, paint);
+	</code></pre>
+	<h2>- Draw a rectangle:</h2>
+	<pre><code data-language="java">
+ourCanvas.drawRect(200, 10, 600, 200, paint);
+	</code></pre>
+	<h2>- Finally set bitmap to Image View:</h2>
+	<pre><code data-language="java">
+ImageView ourFrame = (ImageView) findViewById(R.id.imageView);
+ourFrame.setImageBitmap(ourBitmap);
+	</code></pre>
+	<h1>* Using Surface View:</h1>
+	<h2>- Create Surface View:</h2>
+	<pre><code data-language="java">
+SurfaceView sv = new SurfaceView(getApplicationContext());
+	</code></pre>
+	<h2>- Get Holder:</h2>
+	<pre><code data-language="java">
+SurfaceHolder mOurHolder = sv.getHolder();
+	</code></pre>
+	<h2>- Lock canvas:</h2>
+	<pre><code data-language="java">
+Canvas mCanvas = mOurHolder.lockCanvas();
+	</code></pre>
+	<h2>- Draw something on canvas as above</h2>
+	<h2>- Unlock canvas and post to draw everything to canvas:</h2>
+	<pre><code data-language="java">
+mOurHolder.unlockCanvasAndPost(mCanvas);
+	</code></pre>
+	<h2>- Set containView with Surface View:</h2>
+	<pre><code data-language="java">
+setContentView(sv);
+	</code></pre>
+
+	<script src="js/rainbow-custom.min.js"></script>
+	<script src="rainbow/src/language/java.js"></script>
+</body>
+</html>

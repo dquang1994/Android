@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Drawer Layout</title>
+	<link rel="stylesheet" type="text/css" href="rainbow/themes/css/obsidian.css">
+</head>
+<body>
+	<h1>- Create drawer layout:</h1>
+	<h2>+ The xml code for drawer layout will something like below:</h2>
+	<pre><code data-language="java">
+&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent" android:layout_height="match_parent"&gt;
+
+	&lt;android.support.v4.widget.DrawerLayout
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		xmlns:tools="http://schemas.android.com/tools"
+		android:id="@+id/drawerLayout"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"&gt;
+		&lt;!-- For our fragments--&gt;
+		&lt;RelativeLayout
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			tools:context=".MainActivity"
+			android:background="#ffffffff"
+			android:id="@+id/fragmentHolder"&gt;
+		&lt;/RelativeLayout&gt;
+		&lt;!-- Side navigation drawer UI --&gt;
+		&lt;ListView
+			android:id="@+id/navList"
+			android:layout_width="200dp"
+			android:layout_height="match_parent"
+			android:layout_gravity="left|start"
+			android:background="#ffeeeeee"/&gt;
+	&lt;/android.support.v4.widget.DrawerLayout&gt;
+
+&lt;/RelativeLayout&gt;
+	</code></pre>
+	<h2>+ Inside the drawer layout:</h2>
+	<h3>++ A widget (usually is root layout like relative/constrain/frame layout) which has width and height "match_parent" is primary layout which will be display first and overrided when drawer is open.</h3>
+	<h3>++ A widget that height is "match_parent" but width is < "match_parent" and has layout_gravity is drawer (can swipe in and out)</h3>
+	<h4>+++ layout_gravity="left": drawer is swiped out from the left edge</h4>
+	<h4>+++ layout_gravity="right": drawer is swiped out from the right edge</h4>
+	<h1>- Create a setup drawer function and call it in OnCreate:</h1>
+	<pre><code data-language="java">
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v4.widget.DrawerLayout;
+import android.view.View;
+
+ActionBarDrawerToggle mDrawerToggle;
+DrawerLayout mDrawerLayout;
+String mActivityTitle;
+
+@Override
+protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_main);
+
+    mActivityTitle = getTitle().toString();
+    
+    setupDrawer();
+}
+
+private void setupDrawer() {
+    mDrawerToggle = new ActionBarDrawerToggle
+            (this, mDrawerLayout, R.string.drawer_open,
+                    R.string.drawer_close) {
+
+        // Called when drawer is opened
+        public void onDrawerOpened(View drawerView) {
+            super.onDrawerOpened(drawerView);
+            getSupportActionBar().setTitle("Make selection");
+            // triggers call to onPrepareOptionsMenu
+            invalidateOptionsMenu();
+        }
+
+        // Called when drawer is closed
+        public void onDrawerClosed(View view) {
+            super.onDrawerClosed(view);
+            getSupportActionBar().setTitle(mActivityTitle);
+            // triggers call to onPrepareOptionsMenu
+            invalidateOptionsMenu();
+        }
+    };
+    mDrawerToggle.setDrawerIndicatorEnabled(true);
+
+    mDrawerLayout.setDrawerListener(mDrawerToggle);
+}
+	</code></pre>
+	<h1>- Override 2 methods:</h1>
+	<pre><code data-language="java">
+import android.content.res.Configuration;
+
+@Override
+protected void onPostCreate(Bundle savedInstanceState) {
+    super.onPostCreate(savedInstanceState);
+    mDrawerToggle.syncState();
+}
+
+@Override
+public void onConfigurationChanged(Configuration newConfig) {
+    super.onConfigurationChanged(newConfig);
+    mDrawerToggle.onConfigurationChanged(newConfig);
+}
+	</code></pre>
+	<h1>- In onCreate:</h1>
+	<pre><code data-language="java">
+getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+getSupportActionBar().setHomeButtonEnabled(true);
+	</code></pre>
+	<h1>- In onOptionsItemSelected:</h1>
+	<pre><code data-language="java">
+import android.view.Menu;
+import android.view.MenuItem;
+		
+@Override
+public boolean onCreateOptionsMenu(Menu menu) {
+    // Inflate the menu; this adds items to the action bar if it is present.
+    getMenuInflater().inflate(R.menu.menu_main, menu);
+    return true;
+}
+
+@Override
+public boolean onOptionsItemSelected(MenuItem item) {
+    // Handle action bar item clicks here. The action bar will
+    // automatically handle clicks on the Home/Up button, so long
+    // as you specify a parent activity in AndroidManifest.xml.
+    int id = item.getItemId();
+
+    //noinspection SimplifiableIfStatement
+    if (id == R.id.action_settings) {
+        return true;
+    }
+
+    // Activate the navigation drawer toggle
+    if (mDrawerToggle.onOptionsItemSelected(item)) {
+        return true;
+    }
+
+    return super.onOptionsItemSelected(item);
+}
+	</code></pre>		
+
+	<script src="js/rainbow-custom.min.js"></script>
+	<script src="rainbow/src/language/java.js"></script>
+	<script src="rainbow/src/language/xml.js"></script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>How to use button</title>
+	<link rel="stylesheet" type="text/css" href="rainbow/themes/css/obsidian.css">
+</head>
+<body>
+	<h2>Method 1:</h2>
+	<p>Step 1: Drag button into layout</p>
+	<p>Step 2: Find onClick property and fill the name of method that will be call when the button is clicked: Ex: topClick</p>
+	<p>Step 3: Implement this method in mainActivity:</p>
+	<pre><code data-language="java">
+import android.view.View;
+
+public void topClick(View v){
+	//Do something when button is clicked
+}
+	</code></pre>
+	<h2>Method 2:</h2>
+	<p>Step 1: Implements View.OnClickListener on any class. Ex on mainActivity:</p>
+	<code>public class MainActivity extends AppCompatActivity implements View.OnClickListener</code>
+	<p>Step 2: Implements onClick method in class that implements View.OnClickListener</p>
+	<pre><code data-language="java">
+public void onClick(View v)
+	//Do something when button is clicked
+}
+	</code></pre>
+	<p>Step 3: Get reference to button: (inside OnCreate):</p>
+	<code>btnAdd = (Button) findViewById(R.id.btnAdd);</code>
+	<p>Step 4: Set onClickListener: (inside OnCreate):</p>
+	<code>btnAdd.setOnClickListener(class that implements View.OnClickListener);</code>
+	<p>Ex: <code>btnAdd.setOnClickListener(this)</code> if mainActivity implements <code>View.OnClickListene</code></p>
+
+	<a href="https://github.com/dquang1994/Android/tree/master/Example/LogandButton">Example</a>
+
+	<script src="js/rainbow-custom.min.js"></script>
+	<script src="rainbow/src/language/java.js"></script>
+</body>
+</html>

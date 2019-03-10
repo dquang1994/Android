@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Intents</title>
+	<link rel="stylesheet" type="text/css" href="rainbow/themes/css/obsidian.css">
+</head>
+<body>
+	<h1>Create new Activity</h1>
+	<h1>Switching activity:</h1>
+	<pre style="white-space: pre-wrap;"><code data-language="java">
+import android.content.Intent;
+
+// Declare and initialize a new Intent object called myIntent
+Intent myIntent = new Intent(this,SettingsActivity.class);
+
+// Switch to the SettingsActivity
+startActivity(myIntent);
+
+//The Intent class has a constructor that takes two arguments. The frst is a reference to the current Activity, this. And the second parameter is the name of the Activity we want to open, SettingsActivity.class. The .class on the end of SettingsActivity makes it the full name of the Activity, as declared in the AndroidManifest.xml file.
+	</code></pre>
+	<h1>Passing data between activities:</h1>
+	<h2>We can add data to Intent as below:</h2>
+	<pre><code data-language="java">
+// Create a String called username
+// and set its value to bob
+String username = "Bob";
+
+// Create a new Intent as we have already seen
+Intent myIntent = new Intent(this,SettingsActivity.class);
+
+// Add the username String to the Intent
+// using the putExtra method of the Intent class
+myIntent.putExtra("USER_NAME", username);
+
+// Start the new Activity as we have before
+startActivity(myIntent);
+	</code></pre>
+	<h2>In SettingsActivity, we could then retrieve the string as below:</h2>
+	<pre><code data-language="java">
+Intent myIntent = getIntent();
+
+// Initialize username with the passed in String
+String username = myIntent.getStringExtra("USER_NAME");
+	</code></pre>
+	<a href="https://github.com/dquang1994/Android/tree/master/Example/Intents">Example</a>
+
+	<script src="js/rainbow-custom.min.js"></script>
+	<script src="rainbow/src/language/java.js"></script>
+</body>
+</html>

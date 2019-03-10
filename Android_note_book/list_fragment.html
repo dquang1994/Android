@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>List Fragment</title>
+	<link rel="stylesheet" type="text/css" href="rainbow/themes/css/obsidian.css">
+</head>
+<body>
+	<h1>- List fragment is fragment which has listView build-in</h1>
+	<h1>- Specify which layout will hold fragment and set an id for it:</h1>
+	<p>Ex: Contraints layout in activity_main.xml: id = listFragmentHolder</p>
+	<h1>- Create layout for each item of list fragment:</h1>
+	<p>Ex: list_item.xml</p>
+	<h1>- Create a class extends ListFragment:</h1>
+	<h2>+ Initial variable, create instance of adapter and setListAdapter in onCreate</h2>
+	<h2>+ Implements an adapter (can BaseAdapter or ArrayAdapter):</h2>
+	<h3>++ Create constructor: like below: arguments is context (activity that create fragment, layout, array.</h3>
+	<pre><code data-language="java">
+public AddressListAdapter(ArrayList&lt;NameAndAddress&gt; namesAndAddresses) {
+    super(getActivity(), R.layout.list_item, namesAndAddresses);
+}
+	</code></pre>
+	<h3>++ Inflate layout in getView:</h3>
+	<pre><code data-language="java">
+if (view == null) {
+	LayoutInflater inflater = (LayoutInflater) getActivity().getLayoutInflater();
+	view = inflater.inflate(R.layout.list_item, null);
+}
+	</code></pre>
+	<h1>- Example list fragment implemention:</h1>
+	<pre><code data-language="java">
+public class AddressListFragment extends ListFragment {
+    private ArrayList&lt;NameAndAddress&gt; mNamesAndAddresses;
+
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        //Do something when an item was clicked
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        mNamesAndAddresses = AddressBook.getInstance().getBook();
+
+        AddressListAdapter adapter = new AddressListAdapter(mNamesAndAddresses);
+        setListAdapter(adapter);
+    }
+
+    private class AddressListAdapter extends ArrayAdapter&lt;NameAndAddress&gt;
+    {
+        /*
+        This simple constructor lets the ArrayAdapter
+        super class
+        know what data to use. Notice we didn't need to bind
+        the data in onCreate.
+        Neither do we need to override getCount,
+        getItem or getItemId
+        It is all handled by ArrayAdapter because it is a more
+        specialized version of Base Adapter
+        */
+        public AddressListAdapter(ArrayList&lt;NameAndAddress&gt; namesAndAddresses) {
+            super(getActivity(), R.layout.list_item, namesAndAddresses);
+        }
+
+        @Override
+        public View getView(int whichItem, View view, ViewGroup viewGroup) {
+            if (view == null) {
+                LayoutInflater inflater = (LayoutInflater) getActivity().getLayoutInflater();
+                view = inflater.inflate(R.layout.list_item, null);
+            }
+
+            // We also have this super-handy getItem method
+            NameAndAddress tempNameAndAddress = getItem(whichItem);
+            TextView txtName = (TextView) view.findViewById(R.id.txtName);
+            txtName.setText(tempNameAndAddress.getName());
+
+            return view;
+        }
+    }
+}
+	</code></pre>
+	<h1><a href="https://github.com/dquang1994/Android/tree/master/Example/ListFragment">Example</a></h1>
+
+	<script src="js/rainbow-custom.min.js"></script>
+	<script src="rainbow/src/language/java.js"></script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Spinner</title>
+	<link rel="stylesheet" type="text/css" href="rainbow/themes/css/obsidian.css">
+</head>
+<body>
+	<h1>Drag spinner into layout</h1>
+	<h1>Create string array for value of spinner in strings.xml file:</h1>
+	<pre><code data-language="xml">
+&lt;string-array name="spinner_options"&gt;
+	&lt;item&gt;0&lt;/item&gt;
+	&lt;item&gt;1&lt;/item&gt;
+	&lt;item&gt;3&lt;/item&gt;
+	&lt;item&gt;5&lt;/item&gt;
+	&lt;item&gt;10&lt;/item&gt;
+&lt;/string-array&gt;
+	</code></pre>
+	<h1>Select spinner mode, default (not select) is dropdown</h1>
+	<pre><code data-language="xml">
+android:spinnerMode="dropdown"
+	</code></pre>
+	<h1>Fill entries property the name of array defined before in strings.xml file:</h1>
+	<pre><code data-language="xml">
+android:entries="@array/spinner_options"
+	</code></pre>
+	<h1>Get reference to spinner:</h1>
+	<pre><code data-language="java">
+import android.widget.Spinner;
+
+Spinner spinner = (Spinner) findViewById(R.id.spinner);
+	</code></pre>
+	<h1>setOnItemSelectedListener:</h1>
+	<pre><code data-language="java">
+import android.view.View;
+import android.widget.AdapterView;
+
+spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+	@Override
+	public void onItemSelected(AdapterView&lt;?&gt; parentView, View selectedItemView, int position, long id) {
+		//Do something when an item was selected
+		String temp = String.valueOf(spinner.getSelectedItem());
+		repeats = Integer.valueOf(temp);
+	}
+
+	@Override
+	public void onNothingSelected(AdapterView&lt;?&gt; parentView) {
+	}
+});
+	</code></pre>
+	<a href="https://github.com/dquang1994/Android/tree/master/Example/Spinner">Example</a>
+
+	<script src="js/rainbow-custom.min.js"></script>
+	<script src="rainbow/src/language/java.js"></script>
+	<script src="rainbow/src/language/xml.js"></script>
+</body>
+</html>

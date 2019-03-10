@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Android Note Book</title>
+	<link rel="stylesheet" type="text/css" href="css/styles.css">
+	<link rel="stylesheet" type="text/css" href="rainbow/themes/css/obsidian.css">
+</head>
+<body>
+	<div id="left_container">
+		<h2>Android API</h2>
+		<p><a href="show_the_log.html">Show the log</a></p>
+		<p><a href="dialog.html">Diaglog</a></p>
+		<p><a href="intents.html">Intents</a></p>
+		<p><a href="data_persistent.html">Data Persistent</a></p>
+		<p><a href="UI_animation.html">UI Animation</a></p>
+		<p><a href="sound.html">Sound</a></p>
+		<p><a href="fragment.html">Fragment</a></p>
+		<p><a href="list_fragment.html">List Fragment</a></p>
+		<p><a href="inter_fragment_communications.html">Inter Fragment Communications</a></p>
+		<p><a href="fragment_argument.html">Set argument for fragment</a></p>
+		<p><a href="capture_image_camera.html">Capture Image from Camera</a></p>
+		<p><a href="database.html">Database</a></p>
+		<p><a href="location.html">Location</a></p>
+		<p><a href="draw.html">Draw</a></p>
+		<P><a href="thread.html">Thread</a></ABBR></P>
+	</div>
+	<div id="center_container">
+		<h2>How to use the widget</h2>
+		<p><a href="button.html">Button</a></p>
+		<p><a href="radio.html">Radio Button and Group</a></p>
+		<p><a href="switch.html">Switch</a></p>
+		<p><a href="checkbox.html">Check Box</a></p>
+		<p><a href="webview.html">Web View</a></p>
+		<p><a href="listview.html">List View and Base Adapter</a></p>
+		<p><a href="seek_bar.html">Seek Bar</a></p>
+		<p><a href="spinner.html">Spinner</a></p>
+		<p><a href="viewpager.html">View Pager and PagerAdapter</a></p>
+		<p><a href="viewpager2.html">View Pager and FragmentPagerAdapter</a></p>
+		<p><a href="drawer_layout.html">Drawer Layout</a></p>
+	</div>
+	<div id="right_container">
+		<h2>Some notes</h2>
+		<h1>**** GET SCREEN RESOLUTION ****</h1>
+		<pre><code data-language="java">
+Display display = getWindowManager().getDefaultDisplay();
+Point size = new Point();
+display.getSize(size);
+size.x
+size.y
+		</code></pre>
+		<h1>**** MULTI LANGUAGE ****</h1>
+		<pre style="white-space: pre-wrap;"><code>
+- Create multiple value-xx folder in res folder, xx is a acronym of nation, ex:
+	+ value-fr from french
+	+ value-es for spain
+	+ value is the default language, default language will be displayed when there is no value-xx corresponding with setting value.
+	
+- The displayed language based on language setting
+		</code></pre>	
+		<h1>**** DEVICE DETECTION ****</h1>
+		<pre><code data-language="java">
+// What is the orientation?
+Display display = getWindowManager().getDefaultDisplay();
+display.getRotation();
+// => 0 or 1, Surfcae.ROTATION_0 equals 0 (portrait) and Surface.ROTATION_180 equals 1 (landscape)
+
+
+// What is the resolution?
+Point xy = new Point();
+display.getSize(xy);
+txtResolution.setText("x = " + xy.x + " y = " + xy.y);
+// => vertical and horizontal resolution
+		</code></pre>
+		<h1>**** CONFIGURATION QUALIFIER ****</h1>
+		<pre style="white-space: pre-wrap;"><code>
+- Create a folder name layout-land, in this folder create activity_main.xml (same name with layout file in layout folder)
+
+- When phone is in portrait, activity_main.xml in layout folder will be used. When phone in landscape, activity_main.xml in layout-land folder will be used.
+
+- If we got a reference to TextView (or any other widget) in our Java code, the same exact code would work as long as the id values in the different layouts were the same. Effectively, we have two different layouts controlled by the same Java code.
+		</code></pre>
+		<h1>**** SINGLETONS ****</h1>
+		<h2>- A singleton, as the name suggests, is a class where there can only be one instance of that class</h2>
+		<h2>- Example about singletons:</h2>
+		<h3>+ First we have Movie class:</h3>
+		<pre><code data-language="java">
+public class Movie{
+	private String mTitle;
+	private boolean mOnLoan;
+	
+	public void setTitle(String title){
+		mTitle = title;
+	}
+	
+	public String getTitle(){
+		return mTitle;
+	}
+	
+	public void setLoanStatus(boolean loanStatus){
+		mOnLoan = loanStatus;
+	}
+	
+	public boolean getLoanStatus(){
+		return mLoanStatus;
+	}
+}
+		</code></pre>
+		<h3>+ Singletons class:</h3>
+		<pre><code data-language="java">
+public class RentalStore {
+	// I am instantiating an instance of myself - weird!
+	// This is the only RentalStore that will ever exist
+	private static RentalStore ourInstance = new RentalStore();
+	
+	private ArrayList &lt;Movie&gt; mMovies;
+	
+	// Anyone who wants my one and only instance will
+	// need to use this method
+	public static RentalStore getInstance() {
+		return ourInstance;
+	}
+	
+	// Here is the constructor and it is private
+	// So only this class itself can ever instantiate it
+	private RentalStore() {
+		mMovies = new ArrayList&lt;Movie&gt;();
+	}
+	
+	// Anyone can get the list of movies though
+	public ArrayList &lt;Movie&gt; getMovies(){
+		return mMovies;
+	}
+}
+		</code></pre>
+		<h3>+ In this class, constructor is private so that only this class can create instance itseft. This means that nobody can ever instantiate RentalStore, but everybody can get a reference to the one and only RentalStore stored in our singleton</h3>
+		<h3>+ We can now go about using RentalShop in our code like this:</h3>
+		<pre><code data-language="java">
+RentalShop myRentalShop = RentalShop.getInstance();
+		</code></pre>
+		<h3>+ We can then get hold of the list of movies like this:</h3>
+		<pre><code data-language="java">
+ArrayList &lt;Movie&gt; myMovies = myRentalShop.getMovies();
+		</code></pre>
+		<h3>+ And if later on in our code, probably in another Activity or Fragment, we have code like this, we can be confident that the code is working on exactly the same set of data as the code in the other Activity or Fragment:</h3>
+		<pre><code data-language="java">
+RentalShop someRentalShop = RentalShop.getInstance();
+ArrayList &lt;Movie&gt; myMovies = someRentalShop.getMovies();
+		</code></pre>		
+		<h1>**** OTHERS ****</h1>
+		<pre style="white-space: pre-wrap;"><code data-language="html">
+- Sizing using dp and sp:
+	+ dp use for sizing widget width and height
+	+ sp use for font size
+	+ determine by horizontal resolution / horizontal size in inches
+
+- Sizing using match parent and wrap content
+
+- Padding (inside) and margin (outside)
+
+- Layout_weight: 1 of 2 height or width must set to 0 and layout_weight is apply for the property that set to 0. (Chia theo ti le)
+
+- gravity: align content inside, layout_gravity: align widget position itself within a layout element
+
+- Relative layout: children of the layout is relate to each others. Some important property:
+	+ android:layout_above:{id} => element will above the element that has id = id
+	+ android:layout_below:{id} => ....below...
+	+ android:layout_align[left|right...]="true"
+	+ android:margin...
+	
+- Linear layout: 
+	+ vertical: the new added element will below the old element
+	+ horizontal: the new added element will on the right of old element
+	
+- scroll view can only has one child and usually is linear layout, once have linear layout, we can add as many widgets as we want and they will add scroll nicely
+
+- hint property: the text will be put on the widget as soon as the user tap to it and enter text
+
+- Usually design is linear layout on the top, we will devide it into many frames and each frames is relative layout
+
+- Android life cycle:
+	+ Being created: onCreated
+	+ Starting: onStart
+	+ Resuming: onResume
+	+ Pausing: onPause
+	+ Running: onCreated + onStart + onResume
+	+ Stopping: onStop
+	+ Being destroy: onDestroy
+	
+	+ Setup the app ready to run in onCreated
+	+ Load user data in onResume
+	+ Save user data in onPause
+	+ Free memory in onDestroy
+	
+- About Android UI elements are class:
+	+ When our app is run and the setContentView method is called from onCreate, the layout is inﬂated from XML UI classes and loaded into memory as usable objects. They are stored in a part of the DVM memory called the heap
+	+ All objects of classes are reference type variables and are just references to the actual objects that are stored on the heap; they are not actual objects.
+	+ Regularly, while our app is running, the DVM will scan the stack, the regular racks of our warehouse, and match up references to objects that are on the heap. And it destroys any objects that it fnds without a matching reference
+	+ if an object has no reference variable, we can't possibly do anything with it anyway because we have no way to access it. This system of garbage collection helps our apps run more effciently by freeing up unused memory
+	+ Any UI element that has its id property set can have its reference retrieved from the heap using the findViewById method, which is part of the Activity, the AppCompatActivity class. As it is part of the class that we extend, we have access to it:
+		myButton = (Button) findViewById(R.id.myButton);
+	* Note myButton can exist in any xml file, but ro run without crash, the xml file that contain myButton must be inflated using setContentView so myButton object can load into heap and ready for using.
+	
+	
+- Ailias resource:
+	+ Create refs.xml file in values folder:
+	<?xml version="1.0" encoding="utf-8"?>
+	<resources>
+		<item name = "activity_dualfragment" type= "layout">
+			@layout/activity_main
+		</item>
+	</resources>
+	
+	+ Create refs.xml file in values-land folder:
+	<?xml version="1.0" encoding="utf-8"?>
+	<resources>
+		<item name = "activity_dualfragment" type= "layout">
+			@layout/activity_main_land
+		</item>
+	</resources>
+	
+	+ Create 2 layout files in layout folder: activity_main.xml and activity_main_land.xml
+	
+	+ We can setContentView like below:
+	setContentView(R.layout.activity_dualfragment);
+	
+	+ This setContentView line of code passes the activity_dualfragment alias and not either of the actual layout fles. The two refs.xml fles each contain an alias for activity_dualfragment that will ensure that a different layout fle is used depending upon which orientation the device is in. So when the device is in the landscape orientation, activity_main_land will be loaded as the view, and when the device is in the portrait orientation, activity_main will be used.
+		</code></pre>
+	</div>
+
+	<script src="js/rainbow-custom.min.js"></script>
+	<script src="rainbow/src/language/html.js"></script>
+</body>
+</html>

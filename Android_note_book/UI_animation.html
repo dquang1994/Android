@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>UI Animation</title>
+	<link rel="stylesheet" type="text/css" href="rainbow/themes/css/obsidian.css">
+</head>
+<body>
+	<h1>Declare variable for animation:</h1>
+	<pre><code data-language="java">
+import android.view.animation.Animation;
+
+Animation animFadeIn;
+	</code></pre>
+	<h1>Create animation code in xml file:</h1>
+	<h2>Create a folder name anim on res</h2>
+	<h2>Create animation file in this folder:</h2>
+	<pre><code data-language="xml">
+&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;set xmlns:android="http://schemas.android.com/apk/res/android"
+	android:fillAfter="true" &gt;
+	&lt;alpha
+		android:fromAlpha="0.0"
+		android:interpolator="@android:anim/accelerate_interpolator"
+		android:toAlpha="1.0" /&gt;
+&lt;/set&gt;
+	</code></pre>
+	<h2>Some example animations code:</h2>
+	<pre><code data-language="xml">
+++ Bounce
+&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;set xmlns:android="http://schemas.android.com/apk/res/android"
+	android:fillAfter="true"
+	android:interpolator="@android:anim/bounce_interpolator"&gt;
+	&lt;scale
+		android:fromXScale="1.0"
+		android:fromYScale="0.0"
+		android:toXScale="1.0"
+		android:toYScale="1.0" /&gt;
+&lt;/set&gt;
+
+++ Fade in
+&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;set xmlns:android="http://schemas.android.com/apk/res/android"
+	android:fillAfter="true" &gt;
+	&lt;alpha
+		android:fromAlpha="0.0"
+		android:interpolator="@android:anim/accelerate_interpolator"
+		android:toAlpha="1.0" /&gt;
+&lt;/set&gt;
+
+++ Fade out
+&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;set xmlns:android="http://schemas.android.com/apk/res/android"
+	android:fillAfter="true" &gt;
+	&lt;alpha
+		android:fromAlpha="1.0"
+		android:interpolator="@android:anim/accelerate_interpolator"
+		android:toAlpha="0.0" /&gt;
+&lt;/set&gt;
+
+++ Fade in out
+&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;set xmlns:android="http://schemas.android.com/apk/res/android"
+	android:fillAfter="true" &gt;
+	&lt;alpha
+		android:fromAlpha="0.0"
+		android:interpolator="@android:anim/accelerate_interpolator"
+		android:toAlpha="1.0" /&gt;
+	&lt;alpha
+		android:fromAlpha="1.0"
+		android:interpolator="@android:anim/accelerate_interpolator"
+		android:toAlpha="0.0" /&gt;
+&lt;/set&gt;
+
+++ Flash
+&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;set xmlns:android="http://schemas.android.com/apk/res/android"&gt;
+	&lt;alpha android:fromAlpha="0.0"
+		android:toAlpha="1.0"
+		android:interpolator="@android:anim/accelerate_interpolator"
+		android:repeatMode="reverse"
+		android:repeatCount="10"/&gt;
+&lt;/set&gt;		
+
+++ Left to right
+&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;set xmlns:android="http://schemas.android.com/apk/res/android"&gt;
+	&lt;translate
+		android:fromXDelta="-500%"
+		android:toXDelta="0%"/&gt;
+&lt;/set&gt;
+
+++ Right to left
+&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;set xmlns:android="http://schemas.android.com/apk/res/android"&gt;
+	&lt;translate
+		android:fillAfter="false"
+		android:fromXDelta="500%"
+		android:toXDelta="0%"/&gt;
+&lt;/set&gt;
+
+++ Rotate left
+&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;set xmlns:android="http://schemas.android.com/apk/res/android"&gt;
+	&lt;rotate android:fromDegrees="360"
+		android:toDegrees="0"
+		android:pivotX="50%"
+		android:pivotY="50%"
+		android:interpolator="@android:anim/cycle_interpolator"/&gt;
+&lt;/set&gt;
+
+++ Rotate right
+&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;set xmlns:android="http://schemas.android.com/apk/res/android"&gt;
+	&lt;rotate android:fromDegrees="0"
+		android:toDegrees="360"
+		android:pivotX="50%"
+		android:pivotY="50%"
+		android:interpolator="@android:anim/cycle_interpolator"/&gt;
+&lt;/set&gt;
+
+++ Top to bottom
+&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;set xmlns:android="http://schemas.android.com/apk/res/android"&gt;
+	&lt;translate
+		android:fillAfter="false"
+		android:fromYDelta="-100%"
+		android:toYDelta="0%"/&gt;
+&lt;/set&gt;
+
+++ Zoom in
+&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;set xmlns:android="http://schemas.android.com/apk/res/android"
+	android:fillAfter="true" &gt;
+	&lt;scale
+		android:fromXScale="1.0"
+		android:fromYScale="1.0"
+		android:toXScale="2.0"
+		android:toYScale="2.0"
+		android:pivotX="50%"
+		android:pivotY="50%" /&gt;
+&lt;/set&gt;
+
+++ Zoom out
+&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;set xmlns:android="http://schemas.android.com/apk/res/android"
+	android:fillAfter="true" &gt;
+	&lt;scale
+		android:fromXScale="1.0"
+		android:fromYScale="1.0"
+		android:toXScale="0.5"
+		android:toYScale="0.5"
+		android:pivotX="50%"
+		android:pivotY="50%" /&gt;
+&lt;/set&gt;
+	</code></pre>
+	<h1>Load animation on this variable:</h1>
+	<pre><code data-language="java">
+import android.view.animation.AnimationUtils;
+		
+animFadeIn = AnimationUtils.loadAnimation(this, R.anim.fade_in);
+	</code></pre>
+	<h1>Set duration: </h1>
+	<pre><code data-language="java">
+animFadeIn.setDuration(ms);
+	</code></pre>
+	<h1>Start animation on any UI widget:</h1>
+	<pre><code data-language="java">
+imageView.startAnimation(animFadeIn);
+	</code></pre>
+	<h1>Can also set onClickListener:</h1>
+	<pre><code data-language="java">
+animFadeIn.setAnimationListener(class that implements Animation.AnimationListener);
+	</code></pre>
+	<h1>Implements Animation.AnimationListener on any class and override 3 methods:</h1>
+	<pre><code data-language="java">
+@Override
+public void onAnimationEnd(Animation animation) {
+    //Do something when animation stop
+}
+
+@Override
+public void onAnimationRepeat(Animation animation) {
+	//Do something each time animation repeat
+}
+
+@Override
+public void onAnimationStart(Animation animation) {
+    //Do something when animation start
+}
+	</code></pre>	
+
+	<script src="js/rainbow-custom.min.js"></script>
+	<script src="rainbow/src/language/java.js"></script>
+	<script src="rainbow/src/language/html.js"></script>
+</body>
+</html>

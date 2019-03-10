@@ -1,0 +1,17 @@
+#left_container{
+	width: 33%;
+	height: 100vh;
+	float: left;
+}
+
+#center_container{
+	width: 34%;
+	height: 100vh;
+	float: left;
+}
+
+#right_container{
+	width: 33%;
+	height: 100vh;
+	float: left;
+}

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Check Box</title>
+	<link rel="stylesheet" type="text/css" href="rainbow/themes/css/obsidian.css">
+</head>
+<body>
+	<p>Step 1: Drag check box into layout</p>
+	<p>Step 2: Get reference to check box: (inside onCreate)</p>
+	<pre><code data-language="java">
+import android.widget.CheckBox;
+
+CheckBox cb1 = (CheckBox) findViewById(R.id.checkBox1);
+	</code></pre>
+	<p>Step 3: setOnCheckedChangeListener on check box: (inside OnCreate)</p>
+	<pre><code data-language="java">
+import android.widget.CompoundButton;
+
+cb1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
+{
+	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
+	{
+		if(isChecked){
+			//Do something when check box is checked
+		}else{
+			//Do something when check box isn't checked
+		}
+	}
+});
+	</code></pre>
+	<p><a href="https://github.com/dquang1994/Android/tree/master/Example/CommonUsedWidgets">Example</a></p>
+
+	<script src="js/rainbow-custom.min.js"></script>
+	<script src="rainbow/src/language/java.js"></script>
+</body>
+</html>

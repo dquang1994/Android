@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Inter Fragment Communications</title>
+	<link rel="stylesheet" type="text/css" href="rainbow/themes/css/obsidian.css">
+</head>
+<body>
+	<h1>- Communications between fragment and activity that created it:</h1>
+	<h2>+ Create an interface:</h2>
+	<pre><code data-language="java">
+public interface ActivityComs {
+	void onListItemSelected(Movie movie);
+}
+	</code></pre>
+	<h2>+ Declare an instance of the interface within any Fragment that needs to communicate:</h2>
+	<pre><code data-language="java">
+private ActivityComs mActivityComs;
+	</code></pre>
+	<h2>+ Override onAttach and onDetach like below:</h2>
+	<pre><code data-language="java">
+@Override
+public void onAttach(Activity activity) {
+	super.onAttach(activity);
+	
+	/*
+	activity is a ActivityComs but must
+	still be explicitly cast to the type
+	*/
+	mActivityComs = (ActivityComs)activity;
+}
+
+@Override
+public void onDetach() {
+	super.onDetach();
+	
+	/*
+	Set the reference to null.
+	Now there is no active reference
+	the garbage collector will clean it up
+	*/
+	mActivityComs = null;
+}
+	</code></pre>
+	<h2>+ Note that onAttach receives Activity as a parameter. This is the parent Activity where Fragment is created. So, provided Activity implements the interface, when we call the interfaces method from Fragment, we will be calling the overridden method in Activity</h2>
+	<h2>+ And most importantly, we can, of course, call its one and only method on the event that we want the communication to take place on:</h2>
+	<pre><code data-language="java">
+public void onListItemClick(ListView l, View v, int position, long id)
+{
+	Movie movie = ((MovieListAdapter)getListAdapter()).getItem(position);
+	mActivityComs.onListItemSelected(movie);
+}
+	</code></pre>
+	<h2>+ So if the Activity that created Fragment has implemented ActivityComs, the new Movie object will be passed into the overridden onListItemSelected method in Activity:
+	public class MainActivity extends AppCompatActivity implements ActivityComs{</h2>
+	<h2>+ And then, we must override the method to handle the data that is passed in:</h2>
+	<pre><code data-language="java">
+public void onListItemSelected(Movie movie) {
+	// Do whatever you want with the Movie
+}
+	</code></pre>
+	<h1><a href="https://github.com/dquang1994/Android/tree/master/Example/InterFragmentCommunications">Example</a></h1>
+
+	<script src="js/rainbow-custom.min.js"></script>
+	<script src="rainbow/src/language/java.js"></script>
+</body>
+</html>

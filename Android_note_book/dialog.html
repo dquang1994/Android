@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Dialog</title>
+	<link rel="stylesheet" type="text/css" href="rainbow/themes/css/obsidian.css">
+</head>
+<body>
+	<h1>Step 1: Create a class that externs DialogFragment:</h1>
+	<pre><code data-language="java">
+import android.app.DialogFragment;
+
+public class SampleDialog extends DialogFragment
+	</code></pre>
+	<h1>Step 2: Override onCreateDialog method and work to do in the onCreateDialog:</h1>
+	<pre><code data-language="java">
+import android.app.Dialog;
+import android.os.Bundle;
+
+@Override
+public Dialog onCreateDialog(Bundle savedInstanceState) {
+
+}
+	</code></pre>
+	<h2>** General:</h2>
+	<h3>Step 1: Initial builder and inflate the layout:</h3>
+	<pre><code data-language="java">
+import android.app.AlertDialog;
+import android.view.LayoutInflater;
+import android.view.View;
+
+AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
+LayoutInflater inflater = getActivity().getLayoutInflater();
+View dialogView = inflater.inflate(R.layout.sample_dialog, null);
+	</code></pre>
+	<h3>Step 2: Get reference to widgets using dialogView:</h3>
+	<pre><code data-language="java">
+final EditText editTitle = (EditText) dialogView.findViewById(R.id.editTitle);
+final EditText editDescription = (EditText) dialogView.findViewById(R.id.editDescription);
+	</code></pre>
+	<h3>Step 3: Set view and title of dialog:</h3>
+	<pre><code data-language="java">
+builder.setView(dialogView).setMessage("Add a new note");
+	</code></pre>
+	<h3>Step 4: Handle onClickListener, all other works ... and return builder.create();</h3>
+	<pre><code data-language="java">
+return builder.create();
+	</code></pre>
+	<h2>** If you want only create a simple dialog such as making a choose:</h2>
+	<h3>Step 1: Initial builder:</h3>
+	<pre><code data-language="java">
+AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+	</code></pre>
+	<h3>Step 2: Set title if dialog:</h3>
+	<pre><code data-language="java">
+builder.setMessage("Make a selection");
+	</code></pre>
+	<h3>Step 3: Create some button using builder: and return builder.create()</h3>
+	<pre><code data-language="java">
+import android.content.DialogInterface;
+
+builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+	public void onClick(DialogInterface dialog, int id) {
+		// Do something when button is clicked
+		// The dialog will disappeared after clicked on the button
+	}
+});
+       
+builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+	public void onClick(DialogInterface dialog, int id) {
+		// Do something when button is clicked
+		// The dialog will disappeared after clicked on the button
+	}
+});
+
+return builder.create();
+	</code></pre>
+	<h1>Step 3: Show dialog in main activity:</h1>
+	<h2>Step 1: Create instance:</h2>
+	<pre><code data-language="java">
+DialogNewNote dialog = new DialogNewNote();
+	</code></pre>
+	<h2>Step 2: Show dialog using:</h2>
+	<pre><code data-language="java">
+dialog.show(getFragmentManager(), "");
+	</code></pre>
+	<a href="https://github.com/dquang1994/Android/tree/master/Example/Dialog">Example</a>
+
+	<script src="rainbow/src/language/java.js"></script>
+	<script src="js/rainbow-custom.min.js"></script>
+</body>
+</html>

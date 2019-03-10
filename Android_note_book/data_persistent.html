@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Data Persistent</title>
+	<link rel="stylesheet" type="text/css" href="rainbow/themes/css/obsidian.css">
+</head>
+<body>
+	<h1>Method 1: Using SharedPreferences class for load and saving typical type data (boolean, int, float ...)</h1>
+	<h2>Declare and initial:</h2>
+	<pre><code data-language="java">
+import android.content.SharedPreferences;
+
+private SharedPreferences mPrefs;
+private SharedPreferences.Editor mEditor;
+
+//First string represent for a bunk of data, Mode_Private means that any class, in this app only, can access it
+mPrefs = getSharedPreferences("Note to self", MODE_PRIVATE);
+mEditor = mPrefs.edit();
+	</code></pre>
+	<h2>Save data: (Usually in onPause)</h2>
+	<pre><code data-language="java">
+mEditor.putBoolean("sound", mSound);
+mEditor.putInt("anim option", mAnimOption);
+// That means, the value of mSound and mAnimOption is stored in "Note to self" data bunk
+
+@Override
+protected void onPause() {
+    super.onPause();
+    // Save the settings here
+    mEditor.commit();
+}
+	</code></pre>
+	<h2>Load data:</h2>
+	<pre><code data-language="java">
+private SharedPreferences mPrefs;
+mPrefs = getSharedPreferences("Note to self", MODE_PRIVATE);
+//mPrefs associate with "Note to self" data bunk, data will be loaded from there
+
+mSound = mPrefs.getBoolean("sound", true);
+mAnimOption = mPrefs.getInt("anim option", FAST);
+	</code></pre>
+	<h2>*** Note: Saved data is cleared when we clear app data</h2>
+	<a href="https://github.com/dquang1994/Android/tree/master/Example/DataPersistent">Example</a>
+	<h1>Method 2: Using JSON for load and save object</h1>
+	<h2>Assume that we have a class that has some member variable like below:</h2>
+	<pre><code data-language="java">
+public class Note {
+	private String mTitle;
+	private String mDescription;
+	private boolean mIdea;
+	private boolean mTodo;
+	private boolean mImportant;
+}
+	</code></pre>
+	<h2>Create a method that save all member variable of the class which we want to save and load its object, into JSON object. Now we have a JSON object that represent for all member variable of this class.</h2>
+	<pre><code data-language="java">
+public class Note {
+	private String mTitle;
+	private String mDescription;
+	private boolean mIdea;
+	private boolean mTodo;
+	private boolean mImportant;
+
+	public JSONObject convertToJSON() throws JSONException{
+		JSONObject jo = new JSONObject();
+		jo.put(JSON_TITLE, mTitle);
+		jo.put(JSON_DESCRIPTION, mDescription);
+		jo.put(JSON_IDEA, mIdea);
+		jo.put(JSON_TODO, mTodo);
+		jo.put(JSON_IMPORTANT, mImportant);
+
+		return jo;
+	}
+}
+	</code></pre>
+	<h2>Create a constructor that load the value for all member variable:</h2>
+	<pre><code data-language="java">
+public class Note {
+	private String mTitle;
+	private String mDescription;
+	private boolean mIdea;
+	private boolean mTodo;
+	private boolean mImportant;
+
+	public JSONObject convertToJSON() throws JSONException{
+		JSONObject jo = new JSONObject();
+		jo.put(JSON_TITLE, mTitle);
+		jo.put(JSON_DESCRIPTION, mDescription);
+		jo.put(JSON_IDEA, mIdea);
+		jo.put(JSON_TODO, mTodo);
+		jo.put(JSON_IMPORTANT, mImportant);
+
+		return jo;
+	}
+	
+	public Note(JSONObject jo) throws JSONException {
+		mTitle = jo.getString(JSON_TITLE);
+		mDescription = jo.getString(JSON_DESCRIPTION);
+		mIdea = jo.getBoolean(JSON_IDEA);
+		mTodo = jo.getBoolean(JSON_TODO);
+		mImportant = jo.getBoolean(JSON_IMPORTANT);
+	}
+}
+	</code></pre>
+	<h2>Create a class for serialization:</h2>
+	<pre><code data-language="java">
+public class JSONSerializer {
+	private String mFilename;
+	private Context mContext;
+
+	public JSONSerializer(String fn, Context con){
+		mFilename = fn;
+		mContext = con;
+	}
+
+	public void save(List&lt;Note&gt; notes) throws IOException, JSONException {
+		// Make an array in JSON format
+		JSONArray jArray = new JSONArray();
+
+		// And load it with the notes
+		for (Note n : notes)
+			jArray.put(n.convertToJSON());
+
+		// Now write it to the private disk space of our app
+		Writer writer = null;
+		try {
+			OutputStream out = mContext.openFileOutput(mFilename, mContext.MODE_PRIVATE);
+			writer = new OutputStreamWriter(out);
+			writer.write(jArray.toString());
+		} finally {
+			if (writer != null) {
+				writer.close();
+			}
+		}
+	}
+
+	public ArrayList&lt;Note&gt; load() throws IOException, JSONException{
+		ArrayList&lt;Note&gt; noteList = new ArrayList&lt;Note&gt;();
+
+		BufferedReader reader = null;
+		try {
+			InputStream in = mContext.openFileInput(mFilename);
+			reader = new BufferedReader(new InputStreamReader(in));
+
+			StringBuilder jsonString = new StringBuilder();
+			String line = null;
+
+			while ((line = reader.readLine()) != null) {
+				jsonString.append(line);
+			}
+
+			JSONArray jArray = (JSONArray) new JSONTokener(jsonString.toString()).nextValue();
+			for (int i = 0; i < jArray.length(); i++) {
+				noteList.add(new Note(jArray.getJSONObject(i)));
+			}
+		} catch (FileNotFoundException e) {
+			// we will ignore this one, since it happens
+			// when we start fresh. You could add a log here.
+		} finally {// This will always run
+			if (reader != null)
+				reader.close();
+		}
+
+		return noteList;
+	}
+}
+	</code></pre>
+	<h2>Load and save data by load and save method of this serialization class</h2>
+	<a href="https://github.com/dquang1994/Android/tree/master/Example/JSON">Example</a>
+
+	<script src="js/rainbow-custom.min.js"></script>
+	<script src="rainbow/src/language/java.js"></script>
+</body>
+</html>
