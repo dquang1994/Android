@@ -64,6 +64,12 @@ public class SampleListFragment extends ListFragment {
             if (view == null) {
                 LayoutInflater inflater = (LayoutInflater) getActivity().getLayoutInflater();
                 view = inflater.inflate(R.layout.list_item, null);
+
+                TextView txtTitle = view.findViewById(R.id.txtTitle);
+                txtTitle.setText(mNotes.get(whichItem).getTitle());
+
+                TextView txtDescription = view.findViewById(R.id.txtDescription);
+                txtDescription.setText(mNotes.get(whichItem).getDescriotion());
             }
 
             return view;
