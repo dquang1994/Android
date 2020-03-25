@@ -7,4 +7,11 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <!-- Method 2: Add by xml
+    <fragment
+        class="com.example.nvdq1.fragment.SimpleFragment"
+        android:id="@+id/list_frag"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/-->
+
 </android.support.constraint.ConstraintLayout>
